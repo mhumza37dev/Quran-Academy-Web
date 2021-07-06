@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Slider from "react-slick";
 
 // Images
@@ -48,13 +47,13 @@ export default function PopularCoursesSlider2(props) {
                 </div>
                 <div className="info-bx">
                   <h6 style={{ textTransform: "uppercase" }}>
-                    <Link
+                    <span
                       onClick={() =>
                         props.history.push("/courses-details", item.id)
                       }
                     >
                       {item.Title}
-                    </Link>
+                    </span>
                   </h6>
                 </div>
                 <div className="cours-more-info"></div>

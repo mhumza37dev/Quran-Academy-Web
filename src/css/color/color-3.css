@@ -1,72 +1,69 @@
 /*===================== 	Premery bg color =====================*/
 
 :root {
-	--primary: #6021ff;
-	--sc-primary: #4d0a91;
+  --primary: #6021ff;
+  --sc-primary: #5e72e4;
 }
-
 
 /* Hex */
 
 .bg-primary,
 .btn,
 .comments-area .comment-form p input[type="submit"],
-.pagination>.active>a,
-.pagination>.active>span,
-.pagination>.active>a:hover,
-.pagination>.active>span:hover,
-.pagination>.active>a:focus,
-.pagination>.active>span:focus,
-.feature-filters .active>[class*="btn"],
-.list-num-count>li:before,
-.pagination-bx.primary .pagination>li>a,
-.pagination-bx.primary .pagination>li>span,
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus,
+.feature-filters .active > [class*="btn"],
+.list-num-count > li:before,
+.pagination-bx.primary .pagination > li > a,
+.pagination-bx.primary .pagination > li > span,
 button.back-to-top,
 .rev-btn {
-	background-color: #6021ff;
+  background-color: #6021ff;
 }
-
 
 /*Hex color :hover */
 
 .btn:active,
 .btn:hover,
 .btn:focus,
-.active>.btn,
+.active > .btn,
 .bg-primary-dark,
-.pagination>li>a:hover,
-.pagination>li>span:hover,
-.pagination>li>a:focus,
-.pagination>li>span:focus,
-.pagination>.active>a,
-.pagination>.active>span,
-.pagination>.active>a:hover,
-.pagination>.active>span:hover,
-.pagination>.active>a:focus,
-.pagination>.active>span:focus,
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus,
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus,
 .sidenav .closebtn:hover,
 .sidenav .closebtn:focus,
 .owl-btn-1.primary .owl-prev:hover,
 .owl-btn-1.primary .owl-next:hover,
 .owl-btn-2.primary .owl-prev:hover,
 .owl-btn-2.primary .owl-next:hover,
-.pagination-bx.primary .pagination>li>a:hover,
-.pagination-bx.primary .pagination>li>span:hover,
-.pagination-bx.primary .pagination>li.active>span,
-.pagination-bx.primary .pagination>li.active>a {
-	background-color: #4d0a91;
+.pagination-bx.primary .pagination > li > a:hover,
+.pagination-bx.primary .pagination > li > span:hover,
+.pagination-bx.primary .pagination > li.active > span,
+.pagination-bx.primary .pagination > li.active > a {
+  background-color: #5e72e4;
 }
-
 
 /*===================== 	Premery text color =====================*/
 
 a,
 .text-primary,
 .primary li:before,
-.menu-links .nav>li.active>a,
-.menu-links .nav>li:hover>a,
-.menu-links .nav>li .mega-menu>li ul a:hover,
-.menu-links .nav>li .sub-menu li:hover>a,
+.menu-links .nav > li.active > a,
+.menu-links .nav > li:hover > a,
+.menu-links .nav > li .mega-menu > li ul a:hover,
+.menu-links .nav > li .sub-menu li:hover > a,
 footer a:active,
 footer a:focus,
 footer a:hover,
@@ -82,7 +79,7 @@ footer p a,
 .acod-head a,
 .acod-head a:hover,
 .acod-head a.collapsed:hover,
-.ttr-tabs .nav-tabs>li>a i,
+.ttr-tabs .nav-tabs > li > a i,
 h1 a:hover,
 h2 a:hover,
 h3 a:hover,
@@ -91,21 +88,19 @@ h5 a:hover,
 h6 a:hover,
 .btn.outline,
 .btn-link:hover {
-	color: #6021ff;
+  color: #6021ff;
 }
-
 
 /*===================== 	Secondery bg color =====================*/
 
 .bg-secondry {
-	background-color: #2d3239;
+  background-color: #2d3239;
 }
-
 
 /*===================== 	Secondery text color =====================*/
 
 .text-secondry {
-	color: #2d3239;
+  color: #2d3239;
 }
 
 .ovpr-light:after,
@@ -113,28 +108,28 @@ h6 a:hover,
 .ovpr-dark:after,
 .ovpr:after,
 .bg-primary {
-	background-color: #6021ff;
+  background-color: #6021ff;
 }
 
 .footer-top,
 .footer-bottom {
-	background-color: #121921;
+  background-color: #121921;
 }
 
 .ovbl-middle::after,
 .ovbl-light::after,
 .ovbl-dark::after {
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#0a0023+0,00204f+100 */
-	background: #0a0023;
-	/* Old browsers */
-	background: -moz-linear-gradient(45deg, #0a0023 0%, #00204f 100%);
-	/* FF3.6-15 */
-	background: -webkit-linear-gradient(45deg, #0a0023 0%, #00204f 100%);
-	/* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(45deg, #0a0023 0%, #00204f 100%);
-	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0a0023', endColorstr='#00204f', GradientType=1);
-	/* IE6-9 fallback on horizontal gradient */
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#0a0023+0,00204f+100 */
+  background: #0a0023;
+  /* Old browsers */
+  background: -moz-linear-gradient(45deg, #0a0023 0%, #00204f 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(45deg, #0a0023 0%, #00204f 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(45deg, #0a0023 0%, #00204f 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0a0023', endColorstr='#00204f', GradientType=1);
+  /* IE6-9 fallback on horizontal gradient */
 }
 
 .bg-gradient,
@@ -145,19 +140,18 @@ h6 a:hover,
 .ovpr-dark:after,
 .pricingtable-main,
 .account-head:after {
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#6021ff+11,0066ff+85 */
-	background: #6021ff;
-	/* Old browsers */
-	background: -moz-linear-gradient(45deg, #6021ff 11%, #0066ff 85%);
-	/* FF3.6-15 */
-	background: -webkit-linear-gradient(45deg, #6021ff 11%, #0066ff 85%);
-	/* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(45deg, #6021ff 11%, #0066ff 85%);
-	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6021ff', endColorstr='#0066ff', GradientType=1);
-	/* IE6-9 fallback on horizontal gradient */
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#6021ff+11,0066ff+85 */
+  background: #6021ff;
+  /* Old browsers */
+  background: -moz-linear-gradient(45deg, #6021ff 11%, #0066ff 85%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(45deg, #6021ff 11%, #0066ff 85%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(45deg, #6021ff 11%, #0066ff 85%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6021ff', endColorstr='#0066ff', GradientType=1);
+  /* IE6-9 fallback on horizontal gradient */
 }
-
 
 /* Secondry Color */
 
@@ -176,16 +170,16 @@ button.back-to-top,
 .recent-news-carousel .owl-nav .owl-prev,
 .testimonial-carousel .owl-nav .owl-next,
 .testimonial-carousel .owl-nav .owl-prev {
-	background-color: #43cb83;
-	color: #fff;
+  background-color: #43cb83;
+  color: #fff;
 }
 
 .footer_widget ul li a:hover,
 [class*="ovbl-"] .counter-style-1 .counter-text,
 .header-transparent .secondary-menu .btn-link:hover,
-.header-transparent .menu-links .nav>li:hover>a,
-.header-transparent .menu-links .nav>li.active>a {
-	color: #43cb83;
+.header-transparent .menu-links .nav > li:hover > a,
+.header-transparent .menu-links .nav > li.active > a {
+  color: #43cb83;
 }
 
 .course-info-list ul li a.active:hover,
@@ -201,10 +195,10 @@ button.back-to-top:hover,
 .recent-news-carousel .owl-nav .owl-prev:hover,
 .testimonial-carousel .owl-nav .owl-next:hover,
 .testimonial-carousel .owl-nav .owl-prev:hover {
-	background-color: #6021ff;
-	color: #fff;
+  background-color: #6021ff;
+  color: #fff;
 }
 
 .heading-bx.left .title-head {
-	border-color: #43cb83;
+  border-color: #43cb83;
 }

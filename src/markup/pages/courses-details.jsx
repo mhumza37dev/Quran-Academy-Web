@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Link as ScrollTo } from "react-scroll";
 
 // Layout
 import Header from "../layout/header/header1";
@@ -20,7 +19,7 @@ function CoursesDetails(props) {
     props.location.state === undefined ||
     !props.location.state
   ) {
-    props.location.push("/");
+    props.history.push("/");
   }
 
   useEffect(() => {
@@ -157,17 +156,23 @@ function CoursesDetails(props) {
                         </thead>
 
                         <tbody>
-                          {classes.length > 0 ? (
+                          {classes !== undefined && classes.length > 0 ? (
                             classes.map((index) => (
                               <tr>
-                                <td>Mon,Tue,Wed</td>
-                                <td>8:00-12:00</td>
-                                <td>$120</td>
+                                <td>{index.days}</td>
+                                <td>{index.time_slot}</td>
+                                <td>
+                                  <strong>{"$" + index.fee}</strong>
+                                </td>
                                 <td className="text-center">
                                   {parseInt(index.max_students) -
                                     parseInt(index.students.length)}
                                 </td>
-                                <td>Muneeb Ahmed</td>
+                                <td>
+                                  {index.teacher[0].firstName +
+                                    " " +
+                                    index.teacher[0].lastName}
+                                </td>
                                 <td>
                                   {" "}
                                   <a class="btn" role="button">

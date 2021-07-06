@@ -176,7 +176,7 @@ function Courses(props) {
                           <div className="cours-bx shadow">
                             <div className="action-box">
                               <img src={coursesPic3} alt={item.Title} />
-                              <Link
+                              <span
                                 onClick={() =>
                                   props.history.push(
                                     "/courses-details",
@@ -186,7 +186,7 @@ function Courses(props) {
                                 className="btn"
                               >
                                 Read More
-                              </Link>
+                              </span>
                             </div>
                             <div className="info-bx">
                               <span>{"Islamic"}</span>

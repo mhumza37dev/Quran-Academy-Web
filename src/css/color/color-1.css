@@ -2,7 +2,7 @@
 
 :root {
   --primary: #5e72e4;
-  --sc-primary: #4d0a91;
+  --sc-primary: #5e72e4;
   --secondary: #f7b205;
 }
 ::selection {
@@ -57,12 +57,12 @@ button.back-to-top,
 .pagination-bx.primary .pagination > li > span:hover,
 .pagination-bx.primary .pagination > li.active > span,
 .pagination-bx.primary .pagination > li.active > a {
-  background-color: #4d0a91;
+  background-color: #5e72e4;
 }
 .services-bx:hover:after,
 .testimonial-bx.style1,
 .subscribe-box {
-  background: #4d0a91;
+  background: #5e72e4;
 }
 
 /*===================== 	Premery text color =====================*/
