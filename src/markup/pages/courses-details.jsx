@@ -182,53 +182,54 @@ function CoursesDetails(props) {
                           </li>
                         </ul>
                       </div>
+                      <div className="table-responsive">
+                        {alreadyEnrolled !== undefined &&
+                        alreadyEnrolled[0].length > 0 ? null : (
+                          <table className="table" id="myTable">
+                            <thead>
+                              <tr className="mb-4">
+                                <th>Days</th>
+                                <th>Time</th>
+                                <th>Cost</th>
+                                <th className="text-center">Available Seats</th>
+                                <th>Teacher</th>
+                                <th>Admission</th>
+                              </tr>
+                            </thead>
 
-                      {alreadyEnrolled !== undefined &&
-                      alreadyEnrolled[0].length > 0 ? null : (
-                        <table className="ui table grey" id="myTable">
-                          <thead>
-                            <tr className="mb-4">
-                              <th>Days</th>
-                              <th>Time</th>
-                              <th>Cost</th>
-                              <th className="text-center">Available Seats</th>
-                              <th>Teacher</th>
-                              <th>Admission</th>
-                            </tr>
-                          </thead>
-
-                          <tbody>
-                            {classes !== undefined && classes.length > 0 ? (
-                              classes.map((index) => (
-                                <tr>
-                                  <td>{index.days}</td>
-                                  <td>{index.time_slot}</td>
-                                  <td>
-                                    <strong>{"$" + index.fee}</strong>
-                                  </td>
-                                  <td className="text-center">
-                                    {parseInt(index.max_students) -
-                                      parseInt(index.students.length)}
-                                  </td>
-                                  <td>
-                                    {index.teacher[0].firstName +
-                                      " " +
-                                      index.teacher[0].lastName}
-                                  </td>
-                                  <td>
-                                    {" "}
-                                    <a class="btn" role="button">
-                                      Get Enrolled
-                                    </a>
-                                  </td>
-                                </tr>
-                              ))
-                            ) : (
-                              <tr>no class for now</tr>
-                            )}
-                          </tbody>
-                        </table>
-                      )}
+                            <tbody>
+                              {classes !== undefined && classes.length > 0 ? (
+                                classes.map((index) => (
+                                  <tr>
+                                    <td>{index.days}</td>
+                                    <td>{index.time_slot}</td>
+                                    <td>
+                                      <strong>{"$" + index.fee}</strong>
+                                    </td>
+                                    <td className="text-center">
+                                      {parseInt(index.max_students) -
+                                        parseInt(index.students.length)}
+                                    </td>
+                                    <td>
+                                      {index.teacher[0].firstName +
+                                        " " +
+                                        index.teacher[0].lastName}
+                                    </td>
+                                    <td>
+                                      {" "}
+                                      <a class="btn" role="button">
+                                        Get Enrolled
+                                      </a>
+                                    </td>
+                                  </tr>
+                                ))
+                              ) : (
+                                <tr>no class for now</tr>
+                              )}
+                            </tbody>
+                          </table>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
