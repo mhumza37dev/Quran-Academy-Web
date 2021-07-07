@@ -2922,11 +2922,11 @@ footer .pt-social-link ul li {
 .contact-bx .input-group textarea.form-control {
   height: 120px;
 }
-.courses-search-bx .input-group .form-control,
+select .courses-search-bx .input-group .form-control,
 .contact-bx .input-group .form-control {
-  border-width: 0 0 2px 0;
+  border-width: 1px 1px 1px 1px;
   background-color: rgba(0, 0, 0, 0);
-  padding: 10px 0;
+  padding: 10px;
 }
 .courses-search-bx .input-group .form-control:focus,
 .contact-bx .input-group .form-control:focus {
@@ -3463,7 +3463,7 @@ footer .pt-social-link ul li {
   z-index: 1;
   width: 500px;
   min-width: 60%;
-  height: 100vh;
+  height: 102vh;
   background-position: center;
   text-align: center;
   align-items: center;
