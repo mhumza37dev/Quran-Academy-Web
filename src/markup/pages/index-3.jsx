@@ -17,9 +17,9 @@ import bg4 from "../../images/background/bg4.jpg";
 const Index3 = (props) => {
   const [currentStudent, setCurrentStudent] = useState();
 
-  if (!localStorage.getItem("student")) {
-    props.history.push("/login");
-  }
+  // if (!localStorage.getItem("student")) {
+  //   props.history.push("/login");
+  // }
 
   useMemo(
     () => setCurrentStudent(JSON.parse(localStorage.getItem("student"))),

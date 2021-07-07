@@ -135,7 +135,7 @@ function Courses(props) {
 
   return (
     <>
-      <Header />
+      <Header {...props} />
 
       <div className="page-content">
         <div

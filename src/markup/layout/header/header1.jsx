@@ -7,6 +7,12 @@ import logo from "../../../images/logo.png";
 import adv from "../../../images/adv/adv.jpg";
 
 const Header = (props) => {
+  // if (
+  //   localStorage.getItem("student") === undefined ||
+  //   localStorage.getItem("student") === null
+  // ) {
+  //   props.history.push("/login");
+  // }
   const [currentStudent, setCurrentStudent] = useState();
   useMemo(() => {
     setCurrentStudent(JSON.parse(localStorage.getItem("student")));
@@ -71,15 +77,16 @@ const Header = (props) => {
               </div>
               <div className="topbar-right">
                 <ul>
-                  {currentStudent !== undefined ? (
+                  {currentStudent !== null ? (
                     <>
                       <ul className="">
                         <li className="active">
                           <Link to="/student/profile">
-                            {currentStudent.account.firstName +
-                              " " +
-                              " " +
-                              currentStudent.account.lastName}
+                            {currentStudent !== undefined &&
+                              currentStudent.account.firstName +
+                                " " +
+                                " " +
+                                currentStudent.account.lastName}
                             <i
                               className="fa fa-user-circle"
                               style={{ fontSize: "1rem", marginLeft: "0.5rem" }}

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
+import Badge from "react-bootstrap/Badge";
 
 // Layout
 import Header from "../layout/header/header1";
@@ -11,8 +12,16 @@ import blogDefaultThum1 from "../../images/blog/default/thum1.jpg";
 
 function CoursesDetails(props) {
   const [classes, setClasses] = useState();
-  const arr = [1, 2, 3, 4];
-  console.log(props.location.state);
+  const [currentStudent, setCurrentStudent] = useState();
+  const [alreadyEnrolled, setAlreadyEnrolled] = useState();
+  const [course, setCourse] = useState();
+
+  console.log("course id===>", props.location.state);
+
+  useMemo(
+    () => setCurrentStudent(JSON.parse(localStorage.getItem("student"))),
+    []
+  );
 
   if (
     props.location.state === null ||
@@ -23,16 +32,42 @@ function CoursesDetails(props) {
   }
 
   useEffect(() => {
+    fetch("https://quran-server.herokuapp.com/course")
+      .then((res) => res.json())
+      .then((res) =>
+        setCourse(res.filter((courses) => courses.id === props.location.state))
+      );
     fetch("https://quran-server.herokuapp.com/class")
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
+        // console.log(res);
+        if (currentStudent !== null) {
+          console.log(currentStudent.account.id);
+          console.log(
+            res
+              .filter((el) => el.course.id === props.location.state)
+              .map((cls) =>
+                cls.students.filter(
+                  (std) => std.id === currentStudent.account.id
+                )
+              )
+          );
+          setAlreadyEnrolled(
+            res
+              .filter((el) => el.course.id === props.location.state)
+              .map((cls) =>
+                cls.students.filter(
+                  (std) => std.id === currentStudent.account.id
+                )
+              )
+          );
+        }
         setClasses(res.filter((el) => el.course.id === props.location.state));
       });
   }, []);
   return (
     <>
-      <Header />
+      <Header {...props} />
 
       <div className="page-content">
         <div
@@ -62,6 +97,19 @@ function CoursesDetails(props) {
               <div className="row d-flex flex-row-reverse">
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                   <div className="courses-post">
+                    {alreadyEnrolled !== undefined &&
+                    alreadyEnrolled[0].length > 0 ? (
+                      <h1 className="text-right">
+                        <Badge
+                          variant="success"
+                          style={{ background: "#5e72e4" }}
+                        >
+                          Enrolled{" "}
+                          <i className="fa fa-check" aria-hidden="true"></i>
+                        </Badge>
+                      </h1>
+                    ) : null}
+
                     <div className="ttr-post-media media-effect">
                       <Link to="#">
                         <img src={blogDefaultThum1} alt="" />
@@ -69,18 +117,10 @@ function CoursesDetails(props) {
                     </div>
                     <div className="ttr-post-info m-b30">
                       <div className="ttr-post-title ">
-                        <h2 className="post-title">
-                          Nvidia and UE4 Technologies Practice
-                        </h2>
-                      </div>
-                      <div className="ttr-post-text">
-                        <p>
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typesetting industry. Lorem Ipsum has been the
-                          industry's standard dummy text ever since the 1500s,
-                          when an unknown printer took a galley of type and
-                          scrambled it to make a type specimen book.
-                        </p>
+                        {course !== undefined &&
+                          course.map((item) => (
+                            <h2 className="post-title">{item.Title}</h2>
+                          ))}
                       </div>
                     </div>
                   </div>
@@ -143,49 +183,52 @@ function CoursesDetails(props) {
                         </ul>
                       </div>
 
-                      <table className="ui table grey" id="myTable">
-                        <thead>
-                          <tr className="mb-4">
-                            <th>Days</th>
-                            <th>Time</th>
-                            <th>Cost</th>
-                            <th className="text-center">Available Seats</th>
-                            <th>Teacher</th>
-                            <th>Admission</th>
-                          </tr>
-                        </thead>
+                      {alreadyEnrolled !== undefined &&
+                      alreadyEnrolled[0].length > 0 ? null : (
+                        <table className="ui table grey" id="myTable">
+                          <thead>
+                            <tr className="mb-4">
+                              <th>Days</th>
+                              <th>Time</th>
+                              <th>Cost</th>
+                              <th className="text-center">Available Seats</th>
+                              <th>Teacher</th>
+                              <th>Admission</th>
+                            </tr>
+                          </thead>
 
-                        <tbody>
-                          {classes !== undefined && classes.length > 0 ? (
-                            classes.map((index) => (
-                              <tr>
-                                <td>{index.days}</td>
-                                <td>{index.time_slot}</td>
-                                <td>
-                                  <strong>{"$" + index.fee}</strong>
-                                </td>
-                                <td className="text-center">
-                                  {parseInt(index.max_students) -
-                                    parseInt(index.students.length)}
-                                </td>
-                                <td>
-                                  {index.teacher[0].firstName +
-                                    " " +
-                                    index.teacher[0].lastName}
-                                </td>
-                                <td>
-                                  {" "}
-                                  <a class="btn" role="button">
-                                    Get Enrolled
-                                  </a>
-                                </td>
-                              </tr>
-                            ))
-                          ) : (
-                            <tr>no class for now</tr>
-                          )}
-                        </tbody>
-                      </table>
+                          <tbody>
+                            {classes !== undefined && classes.length > 0 ? (
+                              classes.map((index) => (
+                                <tr>
+                                  <td>{index.days}</td>
+                                  <td>{index.time_slot}</td>
+                                  <td>
+                                    <strong>{"$" + index.fee}</strong>
+                                  </td>
+                                  <td className="text-center">
+                                    {parseInt(index.max_students) -
+                                      parseInt(index.students.length)}
+                                  </td>
+                                  <td>
+                                    {index.teacher[0].firstName +
+                                      " " +
+                                      index.teacher[0].lastName}
+                                  </td>
+                                  <td>
+                                    {" "}
+                                    <a class="btn" role="button">
+                                      Get Enrolled
+                                    </a>
+                                  </td>
+                                </tr>
+                              ))
+                            ) : (
+                              <tr>no class for now</tr>
+                            )}
+                          </tbody>
+                        </table>
+                      )}
                     </div>
                   </div>
                 </div>
