@@ -10,9 +10,64 @@ import bannerImg from "../../images/background/bg2.jpg";
 
 const Register = () => {
   const [variant, setVariant] = useState("success");
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [alertIcon, setAlertIcon] = useState();
   const [message, setMessage] = useState("this is example alert");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [dob, setDob] = useState("");
+  const [gender, setGender] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const signUp = () => {
+    setLoading(true);
+    fetch("https://quran-server.herokuapp.com/student/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        status: "disabled",
+        firstName: firstName,
+        lastName: lastName,
+        dob: dob,
+        mobile: mobile,
+        gender: gender,
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+        acceptTerms: true,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setMessage(res.message);
+        if (res.message === "Email is already in use") {
+          setLoading(false);
+          setVariant("warning");
+          setOpen(true);
+        } else if (res.message === "Phone Number is already in use") {
+          setLoading(false);
+          setVariant("warning");
+          setOpen(true);
+        } else if (
+          res.message ===
+          "Registration successful, please check your email for verification instructions"
+        ) {
+          setLoading(false);
+          setVariant("success");
+          setOpen(true);
+        } else {
+          setLoading(false);
+          setVariant("danger");
+          setOpen(true);
+        }
+      });
+  };
 
   return (
     <>
@@ -50,6 +105,7 @@ const Register = () => {
                         type="text"
                         placeholder="Your First Name"
                         className="form-control"
+                        onChange={(e) => setFirstName(e.target.value)}
                       />
                     </div>
                   </div>
@@ -65,6 +121,7 @@ const Register = () => {
                         type="text"
                         placeholder="Enter Your Last Name"
                         className="form-control"
+                        onChange={(e) => setLastName(e.target.value)}
                       />
                     </div>
                   </div>
@@ -79,6 +136,7 @@ const Register = () => {
                         type="email"
                         placeholder="Enter Your Email Address"
                         className="form-control"
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
                   </div>
@@ -93,6 +151,7 @@ const Register = () => {
                         type="phone"
                         placeholder="Your Mobile #"
                         className="form-control"
+                        onChange={(e) => setMobile(e.target.value)}
                       />
                     </div>
                   </div>
@@ -105,6 +164,7 @@ const Register = () => {
                       type="date"
                       name="dob"
                       placeholder="Date of Birth"
+                      onChange={(e) => setDob(e.target.value)}
                     />
                   </Form.Group>
                 </div>
@@ -116,9 +176,10 @@ const Register = () => {
                       as="select"
                       className="mr-sm-2 form-control"
                       id=""
+                      onChange={(e) => setGender(e.target.value)}
                       custom
                     >
-                      <option value="">Select Gender</option>
+                      <option>Select Gender</option>
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
                     </Form.Control>
@@ -134,6 +195,7 @@ const Register = () => {
                         type="password"
                         placeholder="Password"
                         className="form-control"
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                     </div>
                   </div>
@@ -148,31 +210,32 @@ const Register = () => {
                         type="password"
                         placeholder="Confirm Password"
                         className="form-control"
+                        onChange={(e) => setConfirmPassword(e.target.value)}
                       />
                     </div>
-                  </div>
-                </div>
-                <div className="col-lg-6 col-md-6 col-sm-12">
-                  <div class="form-group form-check">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      id="exampleCheck1"
-                    />
-                    <label class="form-check-label" for="exampleCheck1">
-                      Check me out
-                    </label>
                   </div>
                 </div>
 
                 <div className="col-lg-12 m-b30">
                   <button
+                    disabled={loading}
                     name="submit"
                     type="submit"
                     value="Submit"
                     className="btn button-md"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      signUp();
+                    }}
                   >
-                    Sign Up
+                    {loading ? <span>Please Wait</span> : null}
+                    {loading ? (
+                      <i
+                        className="fa fa-spinner fa-pulse"
+                        style={{ margin: "5px" }}
+                      ></i>
+                    ) : null}
+                    {!loading ? <span>Sign Up</span> : null}
                   </button>
                 </div>
                 <div className="col-lg-12">
