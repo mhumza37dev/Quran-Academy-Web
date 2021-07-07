@@ -17,7 +17,7 @@ class Faq1 extends Component {
   render() {
     return (
       <>
-        <Header {...props} />
+        <Header {...this.props} />
 
         <div className="page-content">
           <div
