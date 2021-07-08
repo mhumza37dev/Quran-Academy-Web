@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState } from "react";
 
 const EditProfile = () => {
   const [firstName, setFirstName] = useState();
@@ -26,6 +26,7 @@ const EditProfile = () => {
             <div className="col-12 col-sm-9 col-md-9 col-lg-7">
               <input
                 className="form-control"
+                value={firstName}
                 type="text"
                 onChange={(e) => setFirstName(e.target.value)}
               />
@@ -39,6 +40,7 @@ const EditProfile = () => {
               <input
                 className="form-control"
                 type="text"
+                value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
             </div>

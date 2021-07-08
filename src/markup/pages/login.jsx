@@ -63,6 +63,18 @@ const Login = (props) => {
     }
   };
 
+  const loginWithGoogle = () => {
+    fetch("")
+      .then((res) => res.json())
+      .then((res) => console.log(res));
+  };
+
+  const loginWithFacebook = () => {
+    fetch("")
+      .then((res) => res.json())
+      .then((res) => console.log(res));
+  };
+
   return (
     <>
       <div className="account-form">
@@ -146,6 +158,10 @@ const Login = (props) => {
                     className="btn flex-fill m-r10 facebook"
                     style={{ color: "white", border: "none" }}
                     to="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      loginWithFacebook();
+                    }}
                   >
                     <i className="fa fa-facebook"></i>Facebook
                   </Link>
@@ -153,6 +169,10 @@ const Login = (props) => {
                     className="btn flex-fill m-l5 google-plus"
                     style={{ color: "white", border: "none" }}
                     to="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      loginWithGoogle();
+                    }}
                   >
                     <i className="fa fa-google-plus"></i>Google Plus
                   </Link>

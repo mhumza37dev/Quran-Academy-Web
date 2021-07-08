@@ -4,7 +4,6 @@ import Sticky from "react-stickynode";
 
 // Images
 import logo from "../../../images/logo.png";
-import adv from "../../../images/adv/adv.jpg";
 
 const Header = (props) => {
   // if (
@@ -16,7 +15,6 @@ const Header = (props) => {
   const [currentStudent, setCurrentStudent] = useState();
   useMemo(() => {
     setCurrentStudent(JSON.parse(localStorage.getItem("student")));
-    console.log(currentStudent);
   }, []);
 
   useEffect(() => {

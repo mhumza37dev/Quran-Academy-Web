@@ -98,22 +98,22 @@ const content = [
   },
 ];
 
-const FilterList = ({ dataFilter, defaultTag, activeFilter }) => {
-  return (
-    <li
-      className={`${activeFilter ? "btn active" : "btn"}`}
-      onClick={() => defaultTag(dataFilter)}
-    >
-      <Link to={"#"}>{dataFilter}</Link>
-    </li>
-  );
-};
+// const FilterList = ({ dataFilter, defaultTag, activeFilter }) => {
+//   return (
+//     <li
+//       className={`${activeFilter ? "btn active" : "btn"}`}
+//       onClick={() => defaultTag(dataFilter)}
+//     >
+//       <Link to={"#"}>{dataFilter}</Link>
+//     </li>
+//   );
+// };
 
 function CoursesContent(props) {
   const [tag, setTag] = useState("All");
   const [filteredImages, setFilterdImages] = useState([]);
   const [currentStudent, setCurrentStudent] = useState();
-  const [classes, setClasses] = useState();
+  // const [classes, setClasses] = useState();
   useMemo(
     () => setCurrentStudent(JSON.parse(localStorage.getItem("student"))),
     []
