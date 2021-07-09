@@ -97,30 +97,39 @@ function CoursesDetails(props) {
               <div className="row d-flex flex-row-reverse">
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                   <div className="courses-post">
-                    {alreadyEnrolled !== undefined &&
-                    alreadyEnrolled[0].length > 0 ? (
-                      <h1 className="text-right">
-                        <Badge
-                          variant="success"
-                          style={{ background: "#5e72e4" }}
-                        >
-                          Enrolled{" "}
-                          <i className="fa fa-check" aria-hidden="true"></i>
-                        </Badge>
-                      </h1>
-                    ) : null}
-
                     <div className="ttr-post-media media-effect">
                       <Link to="#">
                         <img src={blogDefaultThum1} alt="" />
                       </Link>
                     </div>
                     <div className="ttr-post-info m-b30">
-                      <div className="ttr-post-title ">
-                        {course !== undefined &&
-                          course.map((item) => (
-                            <h2 className="post-title">{item.Title}</h2>
-                          ))}
+                      <div className="row">
+                        <div className="col col-lg-6 col-md-6 col-sm-6">
+                          <div className="ttr-post-title ">
+                            {course !== undefined &&
+                              course.map((item) => (
+                                <h2 className="post-title">{item.Title}</h2>
+                              ))}
+                          </div>
+                        </div>
+                        <div className="col col-lg-6 col-md-6 col-sm-6">
+                          {alreadyEnrolled !== undefined &&
+                          alreadyEnrolled[0].length > 0 ? (
+                            <h1 className="text-right ttr-post-title ">
+                              <Badge
+                                className="post-title"
+                                variant="success"
+                                style={{ background: "#5e72e4" }}
+                              >
+                                Enrolled{" "}
+                                <i
+                                  className="fa fa-check"
+                                  aria-hidden="true"
+                                ></i>
+                              </Badge>
+                            </h1>
+                          ) : null}
+                        </div>
                       </div>
                     </div>
                   </div>
