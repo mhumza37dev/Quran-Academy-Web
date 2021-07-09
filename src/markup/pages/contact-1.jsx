@@ -127,6 +127,7 @@ class Contact1 extends Component {
                             type="submit"
                             value="Submit"
                             class="btn button-md"
+                            onClick={(e) => e.preventDefault()}
                           >
                             {" "}
                             Send Message

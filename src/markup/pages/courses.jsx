@@ -19,6 +19,9 @@ import coursesPic6 from "../../images/courses/pic6.jpg";
 import coursesPic7 from "../../images/courses/pic7.jpg";
 import coursesPic8 from "../../images/courses/pic8.jpg";
 import coursesPic9 from "../../images/courses/pic9.jpg";
+import Pagination from "../../Component/Pagination";
+
+import CoursesComponent from "../../Component/CoursesComponent";
 
 const content = [
   {
@@ -120,18 +123,36 @@ const content = [
 ];
 
 function Courses(props) {
-  const [courses, setCourses] = useState();
+  const [courses, setCourses] = useState([]);
+
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(9);
 
   console.log(props);
 
   useEffect(() => {
-    fetch("https://quran-server.herokuapp.com/course")
-      .then((res) => res.json())
-      .then((res) => {
-        console.log("ssssss", res);
-        setCourses(res);
-      });
+    setLoading(true);
+    const fetchPosts = async () => {
+      fetch("https://quran-server.herokuapp.com/course")
+        .then((res) => res.json())
+        .then((res) => {
+          console.log("ssssss", res);
+          setCourses(res);
+          setLoading(false);
+        });
+    };
+
+    fetchPosts();
   }, []);
+
+  // Get current posts
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = courses.slice(indexOfFirstPost, indexOfLastPost);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <>
@@ -170,34 +191,18 @@ function Courses(props) {
                 </div>
                 <div className="col-lg-9 col-md-8 col-sm-12">
                   <div className="row">
-                    {courses !== undefined &&
-                      courses.map((item) => (
-                        <div className="col-md-6 col-lg-4 col-sm-6 m-b30">
-                          <div className="cours-bx shadow">
-                            <div className="action-box">
-                              <img src={coursesPic3} alt={item.Title} />
-                              <span
-                                onClick={() =>
-                                  props.history.push(
-                                    "/courses-details",
-                                    item.id
-                                  )
-                                }
-                                className="btn"
-                              >
-                                Read More
-                              </span>
-                            </div>
-                            <div className="info-bx">
-                              <span>{"Islamic"}</span>
-                              <h6 style={{ textTransform: "uppercase" }}>
-                                {item.Title}
-                              </h6>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    <div className="col-lg-12 m-b20">
+                    <CoursesComponent
+                      {...props}
+                      courses={currentPosts}
+                      loading={loading}
+                    />
+
+                    <Pagination
+                      postsPerPage={postsPerPage}
+                      totalPosts={courses.length}
+                      paginate={paginate}
+                    />
+                    {/* <div className="col-lg-12 m-b20">
                       <div className="pagination-bx rounded-sm gray clearfix">
                         <ul className="pagination">
                           <li className="previous">
@@ -221,7 +226,7 @@ function Courses(props) {
                           </li>
                         </ul>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

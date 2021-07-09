@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
 
 // Images
-import logo from "../../../images/logo-white.png";
+import logo from "../../../images/QURAN-03.png";
 import galleryPic1 from "../../../images/gallery/pic1.jpg";
 import galleryPic2 from "../../../images/gallery/pic2.jpg";
 import galleryPic3 from "../../../images/gallery/pic3.jpg";
@@ -151,6 +151,7 @@ class Footer1 extends Component {
                               value="Submit"
                               type="submit"
                               className="btn"
+                              onClick={(e) => e.preventDefault()}
                             >
                               <i className="fa fa-arrow-right"></i>
                             </button>

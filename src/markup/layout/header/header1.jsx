@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Sticky from "react-stickynode";
 
 // Images
-import logo from "../../../images/logo.png";
+import logo from "../../../images/QURAN-01.png";
 
 const Header = (props) => {
   // if (

@@ -4551,3 +4551,7 @@ select:focus,
 .recent-posts-entry .media-post:after {
   content: none;
 }
+
+.cursor {
+  cursor: pointer;
+}

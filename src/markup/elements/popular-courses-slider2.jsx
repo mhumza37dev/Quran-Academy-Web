@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
+import { Link } from "react-router-dom";
 
 // Images
 import coursesPic1 from "../../images/courses/pic10.jpg";
@@ -32,18 +33,22 @@ export default function PopularCoursesSlider2(props) {
       >
         {courses !== undefined &&
           courses.map((item) => (
-            <div className="slider-item">
+            <div
+              className="slider-item cursor"
+              onClick={() => props.history.push("/courses-details", item.id)}
+            >
               <div className="cours-bx">
                 <div className="action-box">
                   <img src={coursesPic1} alt={item.Title} />
-                  <span
+                  <Link
+                    to="#"
                     onClick={() =>
                       props.history.push("/courses-details", item.id)
                     }
                     className="btn"
                   >
                     Read More
-                  </span>
+                  </Link>
                 </div>
                 <div className="info-bx">
                   <h6 style={{ textTransform: "uppercase" }}>
