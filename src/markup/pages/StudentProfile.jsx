@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(10),
     margin: "20px auto",
     "&:hover": {
-      border: "solid #5e72e4",
+      border: "solid #429AAF",
       width: theme.spacing(10),
       height: theme.spacing(10),
     },

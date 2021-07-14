@@ -81,10 +81,7 @@ const Header = (props) => {
                         <li className="active">
                           <Link to="/student/profile">
                             {currentStudent !== undefined &&
-                              currentStudent.account.firstName +
-                                " " +
-                                " " +
-                                currentStudent.account.lastName}
+                              currentStudent.account.firstName}
                             <i
                               className="fa fa-user-circle"
                               style={{ fontSize: "1rem", marginLeft: "0.5rem" }}

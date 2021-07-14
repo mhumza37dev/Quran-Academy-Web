@@ -3475,7 +3475,7 @@ select .courses-search-bx .input-group .form-control,
   width: 100%;
 }
 .account-head:after {
-  opacity: 0.9;
+  opacity: 0.5;
   content: "";
   position: absolute;
   left: 0;

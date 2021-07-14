@@ -52,7 +52,7 @@
 .skin-2 .pagination-bx.primary .pagination > li > span:hover,
 .skin-2 .pagination-bx.primary .pagination > li.active > span,
 .skin-2 .pagination-bx.primary .pagination > li.active > a {
-  background-color: #5e72e4;
+  background-color: #429aaf;
 }
 
 /*===================== 	Premery text color =====================*/
@@ -180,7 +180,7 @@
 .skin-2 .recent-news-carousel .owl-nav .owl-prev,
 .skin-2 .testimonial-carousel .owl-nav .owl-next,
 .skin-2 .testimonial-carousel .owl-nav .owl-prev {
-  background-color: #ffa415;
+  background-color: #d1cbc2;
   color: #000;
 }
 
@@ -189,7 +189,7 @@
 .skin-2 .header-transparent .secondary-menu .btn-link:hover,
 .skin-2 .header-transparent .menu-links .nav > li:hover > a,
 .skin-2 .header-transparent .menu-links .nav > li.active > a {
-  color: #ffa415;
+  color: #aca69d;
 }
 
 .skin-2 .btn.outline:hover,

@@ -119,7 +119,7 @@ function CoursesDetails(props) {
                               <Badge
                                 className="post-title"
                                 variant="success"
-                                style={{ background: "#5e72e4" }}
+                                style={{ background: "#429AAF" }}
                               >
                                 Enrolled{" "}
                                 <i

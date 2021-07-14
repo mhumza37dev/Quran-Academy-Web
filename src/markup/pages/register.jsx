@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Form } from "react-bootstrap";
+import { GoogleLogin } from "react-google-login";
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
 import Alert from "react-bootstrap/Alert";
 
 // Images
+import logo from "../../images/QURAN-04.png";
+
 import logoWhite2 from "../../images/logo-white-2.png";
 import bannerImg from "../../images/background/bg2.jpg";
 
-const Register = () => {
+const Register = (props) => {
   const [variant, setVariant] = useState("success");
   const [open, setOpen] = useState(false);
   const [alertIcon, setAlertIcon] = useState();
@@ -69,15 +73,47 @@ const Register = () => {
       });
   };
 
+  const responseFacebook = (response) => {
+    console.log(response);
+  };
+
+  const loginWithGoogle = (response) => {
+    console.log(response["profileObj"]);
+    console.log("in google login function");
+    fetch("https://quran-server.herokuapp.com/student/google2", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(response["profileObj"]),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        if (!res.account) {
+          setMessage("Couldn't Login");
+          setVariant("danger");
+          setAlertIcon("fa fa-times-circle");
+          setOpen(true);
+        }
+        if (res.account) {
+          localStorage.setItem("student", JSON.stringify(res));
+          props.history.push("");
+          console.log("sssssssss");
+        }
+      });
+  };
+
+  const responseGoogle = (response) => {
+    console.log(response);
+  };
+
   return (
     <>
       <div className="account-form">
-        <div
-          className="account-head"
-          style={{ backgroundImage: "url(" + bannerImg + ")" }}
-        >
+        <div className="account-head">
           <Link to="/">
-            <img src={logoWhite2} alt="" />
+            <img src={logo} alt="" width="50%" />
           </Link>
         </div>
         <div className="account-form-inner">
@@ -240,12 +276,44 @@ const Register = () => {
                 </div>
                 <div className="col-lg-12">
                   <h6 className="m-b15">Sign Up with Social media</h6>
-                  <Link className="btn flex-fill m-r10 facebook" to="#">
-                    <i className="fa fa-facebook"></i>Facebook
-                  </Link>
-                  <Link className="btn flex-fill m-l5 google-plus" to="#">
-                    <i className="fa fa-google-plus"></i>Google Plus
-                  </Link>
+                  <FacebookLogin
+                    appId="1427438870956312"
+                    autoLoad={false}
+                    icon={true}
+                    fields="name,email,picture"
+                    callback={responseFacebook}
+                    render={(renderProps) => (
+                      <button
+                        className="btn flex-fill m-r10 facebook"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          console.trace();
+                        }}
+                        style={{ color: "white" }}
+                      >
+                        <i className="fa fa-facebook"></i>Sign Up with Facebook
+                      </button>
+                    )}
+                  />
+                  <GoogleLogin
+                    className="btn flex-fill m-l5 google-plus"
+                    clientId="862532654552-a4dtqhi1d9pkrfang07hdijg2pcj2254.apps.googleusercontent.com"
+                    onSuccess={loginWithGoogle}
+                    onFailure={responseGoogle}
+                    theme={"dark"}
+                    icon={false}
+                  >
+                    <i className="fa fa-google-plus"></i>Sign Up with Google
+                  </GoogleLogin>
+
+                  <div className="heading-bx left">
+                    <p>
+                      <h5 className="title-head">Are you a </h5>
+                      <Link style={{ marginLeft: "5px" }} to="/teacher/login">
+                        Teacher ?
+                      </Link>
+                    </p>
+                  </div>
                 </div>
               </div>
             </form>

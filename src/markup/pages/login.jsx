@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { GoogleLogin } from "react-google-login";
 
 // Images
+import logo from "../../images/QURAN-04.png";
 import logoWhite2 from "../../images/logo-white-2.png";
 import bannerImg from "../../images/background/bg2.jpg";
 import Alert from "react-bootstrap/Alert";
+// import FacebookLogin from "react-facebook-login";
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -63,10 +67,39 @@ const Login = (props) => {
     }
   };
 
-  const loginWithGoogle = () => {
-    fetch("")
+  const responseGoogle = (response) => {
+    console.log(response);
+  };
+
+  const responseFacebook = (response) => {
+    console.log(response);
+  };
+
+  const loginWithGoogle = (response) => {
+    console.log(response["profileObj"]);
+    console.log("in google login function");
+    fetch("https://quran-server.herokuapp.com/student/google2", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(response["profileObj"]),
+    })
       .then((res) => res.json())
-      .then((res) => console.log(res));
+      .then((res) => {
+        console.log(res);
+        if (!res.account) {
+          setMessage("Couldn't Login");
+          setVariant("danger");
+          setAlertIcon("fa fa-times-circle");
+          setOpen(true);
+        }
+        if (res.account) {
+          localStorage.setItem("student", JSON.stringify(res));
+          props.history.push("");
+          console.log("sssssssss");
+        }
+      });
   };
 
   const loginWithFacebook = () => {
@@ -78,12 +111,9 @@ const Login = (props) => {
   return (
     <>
       <div className="account-form">
-        <div
-          className="account-head"
-          style={{ backgroundImage: "url(" + bannerImg + ")" }}
-        >
+        <div className="account-head">
           <Link to="/">
-            <img src={logoWhite2} alt="" />
+            <img src={logo} alt="" width="50%" />
           </Link>
         </div>
         <div className="account-form-inner">
@@ -154,28 +184,45 @@ const Login = (props) => {
                 </div>
                 <div className="col-lg-12">
                   <h6 className="m-b15">Login with Social media</h6>
-                  <Link
-                    className="btn flex-fill m-r10 facebook"
-                    style={{ color: "white", border: "none" }}
-                    to="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      loginWithFacebook();
-                    }}
-                  >
-                    <i className="fa fa-facebook"></i>Facebook
-                  </Link>
-                  <Link
+                  <FacebookLogin
+                    appId="1427438870956312"
+                    autoLoad={false}
+                    icon={true}
+                    fields="name,email,picture"
+                    callback={responseFacebook}
+                    size={"small"}
+                    render={(renderProps) => (
+                      <Link
+                        className="btn flex-fill m-r10 facebook"
+                        onClick={(e) => {
+                          renderProps.onClick();
+                          console.trace();
+                        }}
+                        style={{ color: "white" }}
+                      >
+                        <i className="fa fa-facebook"></i>Log In with Facebook
+                      </Link>
+                    )}
+                  />
+
+                  <GoogleLogin
                     className="btn flex-fill m-l5 google-plus"
-                    style={{ color: "white", border: "none" }}
-                    to="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      loginWithGoogle();
-                    }}
+                    clientId="862532654552-a4dtqhi1d9pkrfang07hdijg2pcj2254.apps.googleusercontent.com"
+                    onSuccess={loginWithGoogle}
+                    onFailure={responseGoogle}
+                    theme={"dark"}
+                    icon={false}
                   >
-                    <i className="fa fa-google-plus"></i>Google Plus
-                  </Link>
+                    <i className="fa fa-google-plus"></i>Log In with Google
+                  </GoogleLogin>
+                  <div className="heading-bx left">
+                    <p>
+                      <h5 className="title-head">Are you a </h5>
+                      <Link style={{ marginLeft: "5px" }} to="/teacher/login">
+                        Teacher ?
+                      </Link>
+                    </p>
+                  </div>
                 </div>
               </div>
             </form>

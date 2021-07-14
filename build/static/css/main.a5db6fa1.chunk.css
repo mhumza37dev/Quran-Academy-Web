@@ -8852,13 +8852,13 @@ select:hover {
   content: none;
 }
 :root {
-  --primary: #5e72e4;
-  --sc-primary: #5e72e4;
+  --primary: #429aaf;
+  --sc-primary: #429aaf;
   --secondary: #f7b205;
 }
 ::selection {
   color: #fff;
-  background-color: #5e72e4;
+  background-color: #429aaf;
 }
 .active > .btn,
 .bg-primary,
@@ -8894,12 +8894,12 @@ select:hover {
 .sidenav .closebtn:focus,
 .sidenav .closebtn:hover,
 button.back-to-top {
-  background-color: #5e72e4;
+  background-color: #429aaf;
 }
 .services-bx:hover:after,
 .subscribe-box,
 .testimonial-bx.style1 {
-  background: #5e72e4;
+  background: #429aaf;
 }
 .acod-head a,
 .acod-head a.collapsed:hover,
@@ -8933,7 +8933,7 @@ h3 a:hover,
 h4 a:hover,
 h5 a:hover,
 h6 a:hover {
-  color: #5e72e4;
+  color: #429aaf;
 }
 .bg-secondry {
   background-color: #2d3239;
@@ -8946,7 +8946,7 @@ h6 a:hover {
 .ovpr-light:after,
 .ovpr-middle:after,
 .ovpr:after {
-  background-color: #5e72e4;
+  background-color: #429aaf;
 }
 .footer-bottom,
 .footer-top {
@@ -8966,9 +8966,9 @@ h6 a:hover {
 .ttr-notify-header:after,
 .ttr-search-bar,
 .widget-bg1 {
-  background: #5e72e4;
-  background: linear-gradient(45deg, #5e72e4, #324cdd);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#5e72e4",endColorstr="#324cdd",GradientType=1);
+  background: #429aaf;
+  background: linear-gradient(45deg, #429aaf, #324cdd);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#429AAF",endColorstr="#324cdd",GradientType=1);
 }
 .btn,
 .btn.outline:hover,
@@ -8981,7 +8981,7 @@ h6 a:hover {
 .testimonial-carousel .slick-arrow,
 .upcoming-event-carousel.owl-btn-1 .slick-arrow,
 button.back-to-top {
-  background-color: #5e72e4;
+  background-color: #429aaf;
   color: #fff;
 }
 .footer_widget ul li a:hover,
@@ -9001,8 +9001,8 @@ button.back-to-top {
 .upcoming-event-carousel.owl-btn-1 .slick-arrow:hover,
 button.back-to-top:hover {
   background-color: #fff;
-  color: #5e72e4;
-  border: 0.5px solid #5e72e4;
+  color: #429aaf;
+  border: 0.5px solid #429aaf;
 }
 .heading-bx.left .title-head,
 .heading-bx.text-center .title-head,
@@ -9010,10 +9010,10 @@ button.back-to-top:hover {
   border-color: #f7b205;
 }
 .bg-primary {
-  background-color: #5e72e4 !important;
+  background-color: #429aaf !important;
 }
 .text-primary {
-  color: #5e72e4 !important;
+  color: #429aaf !important;
 }
 
 /*!
