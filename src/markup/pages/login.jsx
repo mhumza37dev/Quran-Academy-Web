@@ -93,8 +93,7 @@ const Login = (props) => {
           setVariant("danger");
           setAlertIcon("fa fa-times-circle");
           setOpen(true);
-        }
-        if (res.account) {
+        } else if (res.account) {
           localStorage.setItem("student", JSON.stringify(res));
           props.history.push("");
           console.log("sssssssss");
@@ -102,10 +101,42 @@ const Login = (props) => {
       });
   };
 
-  const loginWithFacebook = () => {
-    fetch("")
-      .then((res) => res.json())
-      .then((res) => console.log(res));
+  const loginWithFacebook = (response) => {
+    console.log(response);
+    if (response.email !== undefined) {
+      fetch("https://quran-server.herokuapp.com/student/facebook2", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: response.name,
+          imageUrl: response.picture.data.url,
+          userID: response.id,
+          email: response.email,
+          providerName: response.graphDomain,
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          if (res.account) {
+            localStorage.setItem("student", JSON.stringify(res));
+            props.history.push("");
+            console.log("sssssssss");
+          } else {
+            setMessage("Couldn't Login, Try Again after a while.");
+            setVariant("danger");
+            setAlertIcon("fa fa-times-circle");
+            setOpen(true);
+          }
+        });
+    } else {
+      setMessage("Couldn't Login");
+      setVariant("danger");
+      setAlertIcon("fa fa-times-circle");
+      setOpen(true);
+    }
   };
 
   return (
@@ -127,7 +158,7 @@ const Login = (props) => {
                 <Link to="/register">Create one here</Link>
               </p>
             </div>
-            <Alert show={open} variant={variant}>
+            <Alert show={open} variant={variant} onClick={() => setOpen(false)}>
               <i className={alertIcon}></i>
               {message}
             </Alert>
@@ -189,32 +220,37 @@ const Login = (props) => {
                     autoLoad={false}
                     icon={true}
                     fields="name,email,picture"
-                    callback={responseFacebook}
+                    callback={loginWithFacebook}
                     size={"small"}
                     render={(renderProps) => (
                       <Link
                         className="btn flex-fill m-r10 facebook"
                         onClick={(e) => {
                           renderProps.onClick();
-                          console.trace();
+                          // console.trace();
                         }}
                         style={{ color: "white" }}
                       >
-                        <i className="fa fa-facebook"></i>Log In with Facebook
+                        <i className="fa fa-facebook"></i>Sign In with Facebook
                       </Link>
                     )}
                   />
-
                   <GoogleLogin
                     className="btn flex-fill m-l5 google-plus"
                     clientId="862532654552-a4dtqhi1d9pkrfang07hdijg2pcj2254.apps.googleusercontent.com"
                     onSuccess={loginWithGoogle}
                     onFailure={responseGoogle}
-                    theme={"dark"}
-                    icon={false}
-                  >
-                    <i className="fa fa-google-plus"></i>Log In with Google
-                  </GoogleLogin>
+                    render={(renderProps) => (
+                      <Link
+                        className="btn flex-fill m-l5 google-plus"
+                        onClick={renderProps.onClick}
+                        disabled={renderProps.disabled}
+                      >
+                        <i className="fa fa-google-plus"></i>Sign In with Google
+                      </Link>
+                    )}
+                  />
+
                   <div className="heading-bx left">
                     <p>
                       <h5 className="title-head">Are you a </h5>

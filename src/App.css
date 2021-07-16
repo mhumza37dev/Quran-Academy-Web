@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+tr:nth-child(even) {
+  background: rgb(65, 26, 26);
+}
+tr:nth-child(odd) {
+  background: rgb(153, 150, 150);
+}

@@ -300,11 +300,16 @@ const Register = (props) => {
                     clientId="862532654552-a4dtqhi1d9pkrfang07hdijg2pcj2254.apps.googleusercontent.com"
                     onSuccess={loginWithGoogle}
                     onFailure={responseGoogle}
-                    theme={"dark"}
-                    icon={false}
-                  >
-                    <i className="fa fa-google-plus"></i>Sign Up with Google
-                  </GoogleLogin>
+                    render={(renderProps) => (
+                      <Link
+                        className="btn flex-fill m-l5 google-plus"
+                        onClick={renderProps.onClick}
+                        disabled={renderProps.disabled}
+                      >
+                        <i className="fa fa-google-plus"></i>Sign Up with Google
+                      </Link>
+                    )}
+                  />
 
                   <div className="heading-bx left">
                     <p>

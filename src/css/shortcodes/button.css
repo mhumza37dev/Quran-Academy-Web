@@ -1271,7 +1271,7 @@
 .btn-link.facebook.hover:hover,
 .btn-link.facebook.hover:focus,
 .btn-link.facebook.hover:active {
-  color: #3b5998;
+  color: #b6b6b6;
 }
 .btn-link.google-plus.hover:hover,
 .btn-link.google-plus.hover:focus,
@@ -1306,18 +1306,20 @@
 .btn.facebook {
   background-color: #3b5998;
 }
-.btn.facebook:hover,
-.btn.facebook:focus,
-.btn.facebook:active {
-  background-color: #4b69a8;
+.btn.facebook:hover {
+  /* background-color: #4b69a8; */
+  /* background-color: transparent !important; */
+  background-color: transparent !important;
+  border: 1px #429aaf solid;
+  color: #429aaf;
 }
 .btn.google-plus {
   background-color: #e5513f !important;
 }
-.btn.google-plus:hover,
-.btn.google-plus:focus,
-.btn.google-plus:active {
-  background-color: #fe6e63 !important;
+.btn.google-plus:hover {
+  background-color: white !important;
+  border: 1px #429aaf solid;
+  color: #429aaf;
 }
 .btn.linkedin {
   background-color: #007bb6;

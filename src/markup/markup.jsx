@@ -29,6 +29,10 @@ import CoursesDetails from "./pages/courses-details";
 // Contact Us
 import Contact1 from "./pages/contact-1";
 import StudentProfile from "./pages/StudentProfile";
+import Review from "../css/admin/review";
+
+// import Admin from "../../layouts/Admin.js";
+import Admin from "../StudentDashboard/src/layouts/Admin";
 
 class Markup extends Component {
   render() {
@@ -40,15 +44,12 @@ class Markup extends Component {
             {/* <Route path='/' exact component={Index} />
 						<Route path='/index-2' exact component={Index2} /> */}
             <Route path="/" exact component={Index3} />
-
             {/* About Us */}
             <Route path="/about" exact component={About1} />
             {/* <Route path='/about-2' exact component={About2} /> */}
-
             {/* Faq */}
             <Route path="/faq" exact component={Faq1} />
             {/* <Route path='/faq-2' exact component={Faq2} /> */}
-
             {/* Other Pages */}
             <Route path="/portfolio" exact component={Portfolio} />
             <Route path="/profile" exact component={Profile} />
@@ -56,16 +57,22 @@ class Markup extends Component {
             <Route path="/register" exact component={Register} />
             <Route path="/login" exact component={Login} />
             <Route path="/forget-password" exact component={ForgetPassword} />
-            <Route path="/student/profile" exact component={StudentProfile} />
-
+            {/* <Route path="/student/profile" exact component={StudentProfile} /> */}
             {/* Courses */}
             <Route path="/courses" exact component={Courses} />
             <Route path="/courses-details" exact component={CoursesDetails} />
-
             {/* Contact Us */}
             <Route path="/contact" exact component={Contact1} />
+            <Route path="/test" exact component={Review} />
+            {/* <Route path="/student/dashboard" exact component={Admin} />
+            <Route path="/student/table" exact component={Admin} />
+            <Route path="/student/user" exact component={Admin} />
+            <Route path="/student/icons" exact component={Admin} />
+            <Route path="/student/notifications" exact component={Admin} />
+            <Route path="/student/typography" exact component={Admin} /> */}
 
             <Route path="*" exact component={Error404} />
+            {/* <Redirect from="/student/*" to="stude" /> */}
           </Switch>
 
           <PageScrollTop />

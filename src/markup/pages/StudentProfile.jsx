@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 const StudentProfile = (props) => {
   const [currentStudent, setCurrentStudent] = useState();
 
-  if (!localStorage.getItem("student")) {
+  if (!JSON.parse(localStorage.getItem("student"))) {
     props.history.push("/");
   }
 
@@ -97,10 +97,12 @@ const StudentProfile = (props) => {
                           <Avatar
                             alt={
                               currentStudent !== undefined &&
-                              currentStudent.account.firstName +
-                                " " +
-                                " " +
-                                currentStudent.account.lastName
+                              currentStudent !== null
+                                ? currentStudent.account?.firstName +
+                                  " " +
+                                  " " +
+                                  currentStudent.account?.lastName
+                                : null
                             }
                             src={profilePic1}
                             className={classes.large}
@@ -109,14 +111,18 @@ const StudentProfile = (props) => {
                         <div className="profile-info">
                           <h4>
                             {currentStudent !== undefined &&
-                              currentStudent.account.firstName +
+                            currentStudent !== null
+                              ? currentStudent.account.firstName +
                                 " " +
                                 " " +
-                                currentStudent.account.lastName}
+                                currentStudent.account.lastName
+                              : null}
                           </h4>
                           <span>
                             {currentStudent !== undefined &&
-                              currentStudent.account.email}
+                            currentStudent !== null
+                              ? currentStudent.account.email
+                              : null}
                           </span>
                         </div>
                         <div className="profile-social">
