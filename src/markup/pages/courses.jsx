@@ -1,126 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import { useSelector, useDispatch } from "react-redux";
+import * as getCourses from "../../store/Action/CoursesAction";
 // Layout
 import Header from "../layout/header/header1";
 import Footer from "../layout/footer/footer1";
 
 // Images
 import bannerImg from "../../images/banner/banner3.jpg";
-import adv from "../../images/adv/adv.jpg";
-import blogRecentPic1 from "../../images/blog/recent-blog/pic1.jpg";
-import blogRecentPic3 from "../../images/blog/recent-blog/pic3.jpg";
-import coursesPic1 from "../../images/courses/pic1.jpg";
-import coursesPic2 from "../../images/courses/pic2.jpg";
-import coursesPic3 from "../../images/courses/pic3.jpg";
-import coursesPic4 from "../../images/courses/pic4.jpg";
-import coursesPic5 from "../../images/courses/pic5.jpg";
-import coursesPic6 from "../../images/courses/pic6.jpg";
-import coursesPic7 from "../../images/courses/pic7.jpg";
-import coursesPic8 from "../../images/courses/pic8.jpg";
-import coursesPic9 from "../../images/courses/pic9.jpg";
+
 import Pagination from "../../Component/Pagination";
 
 import CoursesComponent from "../../Component/CoursesComponent";
-
-const content = [
-  {
-    Thumb: coursesPic1,
-    Title: "Introduction EduChamp – LMS plugin",
-    Tag: "Programming",
-    Review: 3,
-    PriceDel: 120,
-    Price: 190,
-  },
-  {
-    Thumb: coursesPic2,
-    Title: "Learn PHP Programming From Scratch",
-    Tag: "Developing",
-    Review: 4,
-    PriceDel: 180,
-    Price: 150,
-  },
-  {
-    Thumb: coursesPic3,
-    Title: "Master Microservices with Spring",
-    Tag: "Coding",
-    Review: 2,
-    PriceDel: 520,
-    Price: 234,
-  },
-  {
-    Thumb: coursesPic4,
-    Title: "Build A Full Web Chat App From Scratch",
-    Tag: "Marketing",
-    Review: 3,
-    PriceDel: 320,
-    Price: 260,
-  },
-  {
-    Thumb: coursesPic4,
-    Title: "Strategy Law And Organization",
-    Tag: "Lerning",
-    Review: 4,
-    PriceDel: 120,
-    Price: 260,
-  },
-  {
-    Thumb: coursesPic5,
-    Title: "Fundamentals Of Music Theory Learn New",
-    Tag: "Programming",
-    Review: 1,
-    PriceDel: 140,
-    Price: 240,
-  },
-  {
-    Thumb: coursesPic7,
-    Title: "Introduction EduChamp – LMS plugin",
-    Tag: "Programming",
-    Review: 3,
-    PriceDel: 120,
-    Price: 190,
-  },
-  {
-    Thumb: coursesPic8,
-    Title: "Learn PHP Programming From Scratch",
-    Tag: "Developing",
-    Review: 4,
-    PriceDel: 180,
-    Price: 150,
-  },
-  {
-    Thumb: coursesPic9,
-    Title: "Master Microservices with Spring",
-    Tag: "Coding",
-    Review: 2,
-    PriceDel: 520,
-    Price: 234,
-  },
-  {
-    Thumb: coursesPic4,
-    Title: "Build A Full Web Chat App From Scratch",
-    Tag: "Marketing",
-    Review: 3,
-    PriceDel: 320,
-    Price: 260,
-  },
-  {
-    Thumb: coursesPic6,
-    Title: "Strategy Law And Organization ",
-    Tag: "Lerning",
-    Review: 4,
-    PriceDel: 120,
-    Price: 260,
-  },
-  {
-    Thumb: coursesPic2,
-    Title: "Fundamentals Of Music Theory Learn New",
-    Tag: "Programming",
-    Review: 1,
-    PriceDel: 140,
-    Price: 240,
-  },
-];
 
 function Courses(props) {
   const [courses, setCourses] = useState([]);
@@ -129,27 +20,44 @@ function Courses(props) {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(9);
 
-  console.log(props);
+  const dispatcher = useDispatch();
+
+  // console.log(props);
+
+  const data = useSelector((state) => state.Course.getCourses);
+
+  console.log("sadasdasdasdasdasdasdasdasdas",data)
 
   useEffect(() => {
-    setLoading(true);
-    const fetchPosts = async () => {
-      fetch("https://quran-server.herokuapp.com/course")
-        .then((res) => res.json())
-        .then((res) => {
-          console.log("ssssss", res);
-          setCourses(res);
-          setLoading(false);
-        });
-    };
-
-    fetchPosts();
+    
+    getCoursesMethod();
   }, []);
+
+  const getCoursesMethod = async () => {
+    setLoading(true);
+    await dispatcher(getCourses.getCoursesData());
+    setLoading(false);
+  };
+
+  // useEffect(() => {
+  //   setLoading(true);
+  //   const fetchPosts = async () => {
+  //     fetch("https://quran-server.herokuapp.com/course")
+  //       .then((res) => res.json())
+  //       .then((res) => {
+  //         console.log("ssssss", res);
+  //         setCourses(res);
+  //         setLoading(false);
+  //       });
+  //   };
+
+  //   fetchPosts();
+  // }, []);
 
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = courses.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = data.slice(indexOfFirstPost, indexOfLastPost);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -199,7 +107,7 @@ function Courses(props) {
 
                     <Pagination
                       postsPerPage={postsPerPage}
-                      totalPosts={courses.length}
+                      totalPosts={data.length}
                       paginate={paginate}
                     />
                     {/* <div className="col-lg-12 m-b20">

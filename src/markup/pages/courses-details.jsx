@@ -8,7 +8,7 @@ import Footer from "../layout/footer/footer1";
 
 // Images
 import bannerImg from "../../images/banner/banner2.jpg";
-import blogDefaultThum1 from "../../images/blog/default/thum1.jpg";
+import blogDefaultThum1 from "../../images/courses/pic3.jpg";
 
 function CoursesDetails(props) {
   const [classes, setClasses] = useState();

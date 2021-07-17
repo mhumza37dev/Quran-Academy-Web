@@ -7,14 +7,34 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import reportWebVitals from "./reportWebVitals";
 
+
+
+// Redux Imports
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import ReduxThunk from "redux-thunk";
+import { Provider } from "react-redux";
+import CourseReducer from "./store/Reducer/CourseReducer";
+
+
+const rootReducer = combineReducers({
+  Course: CourseReducer,
+
+  
+});
+
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+
+
 ReactDOM.render(
   <React.StrictMode>
+  <Provider store={store} >
     <BrowserRouter>
       <Switch>
         <Route path="/student" component={Admin} />
         <Route path="/" component={App} />
       </Switch>
     </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
