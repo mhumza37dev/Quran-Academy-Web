@@ -18,6 +18,20 @@ function CoursesDetails(props) {
 
   console.log("course id===>", props.location.state);
 
+  const getIds = (id) => {
+    var array = [];
+    if (localStorage.getItem("course_id") !== null) {
+      array = localStorage.getItem("course_id").split(",");
+    }
+    if (!array.includes(id)) {
+      array.push(id);
+    }
+
+    console.log("ssssssssssssssssssssssssssssssssssssssssssssss", array);
+    localStorage.removeItem("course_id");
+    localStorage.setItem("course_id", array);
+  };
+
   useMemo(
     () => setCurrentStudent(JSON.parse(localStorage.getItem("student"))),
     []

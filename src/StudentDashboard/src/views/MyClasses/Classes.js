@@ -38,9 +38,7 @@ const Classes = (props) => {
   const [currentAdmin, setCurrentAdmin] = useState();
 
   const [adminId, setAdminId] = useState("");
-  const [fetchedAdmins, setFetchedAdmins] = useState([
-    1, 2, 3, 4, 58, 0, 8, 8, 8, 8, 8,
-  ]);
+  const [fetchedAdmins, setFetchedAdmins] = useState([]);
   const [runn, setrunn] = useState();
   const [show, setShow] = useState(false);
   const [firstname, setfirstname] = useState("");
@@ -71,22 +69,29 @@ const Classes = (props) => {
   //   props.history.push("/admin/404");
   // }
 
-  // useMemo(() => setCurrentAdmin(JSON.parse(localStorage.getItem("user"))), []);
+  useMemo(() => {
+    setCurrentAdmin(JSON.parse(localStorage.getItem("student")));
+    console.log(JSON.parse(localStorage.getItem("student")).account.id);
+  }, []);
 
   useEffect(() => {
-    // fetch(`https://quran-server.herokuapp.com/admin/`, {
-    //   method: "GET",
-    //   dataType: "JSON",
-    //   headers: {
-    //     "Content-Type": "application/json; charset=utf-8",
-    //     Authorization: `Bearer ${currentAdmin.account.jwtToken}`,
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .then((res) => {
-    //     setFetchedAdmins(res);
-    //   });
-  }, [fetchedAdmins]);
+    fetch(
+      `https://quran-server.herokuapp.com/student/attendance/count/all/${currentAdmin.account.id}`,
+      {
+        method: "GET",
+        dataType: "JSON",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          Authorization: `Bearer ${currentAdmin.jwtToken}`,
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("sdsadasdasd========>?", res);
+        setFetchedAdmins(res);
+      });
+  }, []);
 
   // const edit = () => {
   //   console.log(currentAdmin.account.jwtToken);
@@ -216,16 +221,14 @@ const Classes = (props) => {
     <>
       <div className="header bg-gradient-dark pb-8 pt-5 pt-md-8"></div>
 
-      <Modal
+      {/* <Modal
         show={show}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
         size="xl"
       >
-        <Modal.Header closeButton>
-          {/* <Modal.Title>Add New Admin</Modal.Title> */}
-        </Modal.Header>
+        <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <div>
             <Alert
@@ -238,14 +241,7 @@ const Classes = (props) => {
             </Alert>
             <div>
               <div className="container justify-content-center">
-                {/* <Alert
-                  color={alertType}
-                  isOpen={open}
-                  onClick={() => setOpen(false)}
-                >
-                  {message}
-                </Alert> */}
-                <div className="pb-5">
+                    <div className="pb-5">
                   <h1 className="font-weight-bold fs">Update Admin</h1>
                   <div
                     style={{
@@ -366,7 +362,7 @@ const Classes = (props) => {
             Update
           </BT>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
 
       <Container className="mt--7" fluid>
         {/* Table */}
@@ -387,20 +383,29 @@ const Classes = (props) => {
                   <thead className="thead-light">
                     <tr>
                       <th>S.No</th>
+                      {/* <th scope="col" className="text-center">
+                        ClassID
+                      </th> */}
                       <th scope="col" className="text-center">
-                        CLASS ID
+                        Course
                       </th>
                       <th scope="col" className="text-center">
-                        COURSE
+                        Teacher
                       </th>
                       <th scope="col" className="text-center">
-                        TEACHER
+                        Days
                       </th>
                       <th scope="col" className="text-center">
-                        ABSENTS
+                        Time-Slot
                       </th>
                       <th scope="col" className="text-center">
-                        PRESENTS
+                        Absents
+                      </th>
+                      <th scope="col" className="text-center">
+                        Presents
+                      </th>
+                      <th scope="col" className="text-center">
+                        Total Attendance
                       </th>
                       {/* <th scope="col" />
                     <th scope="col" /> */}
@@ -410,20 +415,36 @@ const Classes = (props) => {
                   <tbody>
                     {fetchedAdmins === undefined
                       ? null
-                      : fetchedAdmins.map((data) =>
+                      : fetchedAdmins.AllClasses !== undefined &&
+                        fetchedAdmins.AllClasses.map((data) =>
                           data.status !== "blocked" ? (
                             <tr>
                               <td>{++counter}</td>
-                              <td scope="row" className="text-center">
+                              {/* <td scope="row" className="text-center">
                                 <span className="mb-0 text-sm text-center">
-                                  {"HELLO"}
+                                  {data.id}
+                                </span>
+                              </td> */}
+                              <td className="text-center">
+                                <span className="mb-0 text-md">
+                                  {data.course.Title}
                                 </span>
                               </td>
                               <td className="text-center">
-                                <span className="mb-0 text-md">{"HELLO"}</span>
+                                {data.teacher[0].firstName +
+                                  " " +
+                                  data.teacher[0].lastName}
                               </td>
-                              <td className="text-center">{"HELLO"}</td>
-                              <td className="text-center">{"10"}</td>
+                              <td className="text-center">{data.days}</td>
+                              <td className="text-center">{data.time_slot}</td>
+                              <td className="text-center">
+                                {
+                                  fetchedAdmins.TotalAttendance[data.id][
+                                    fetchedAdmins.TotalAttendance[data.id]
+                                      .length - 1
+                                  ]["Total Absent"]
+                                }
+                              </td>
 
                               <td className="text-center">
                                 {data.status === "Inactive" ? (
@@ -431,7 +452,22 @@ const Classes = (props) => {
                                 ) : (
                                   <i className="bg-success" />
                                 )}
-                                {"20"}
+                                {
+                                  fetchedAdmins.TotalAttendance[data.id][
+                                    fetchedAdmins.TotalAttendance[data.id]
+                                      .length - 1
+                                  ]["Total Present"]
+                                }
+                              </td>
+                              <td className="text-center">
+                                {fetchedAdmins.TotalAttendance[data.id][
+                                  fetchedAdmins.TotalAttendance[data.id]
+                                    .length - 1
+                                ]["Total Present"] +
+                                  fetchedAdmins.TotalAttendance[data.id][
+                                    fetchedAdmins.TotalAttendance[data.id]
+                                      .length - 1
+                                  ]["Total Absent"]}
                               </td>
                             </tr>
                           ) : null

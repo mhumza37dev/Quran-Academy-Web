@@ -26,10 +26,9 @@ function Courses(props) {
 
   const data = useSelector((state) => state.Course.getCourses);
 
-  console.log("sadasdasdasdasdasdasdasdasdas",data)
+  console.log("sadasdasdasdasdasdasdasdasdas", data);
 
   useEffect(() => {
-    
     getCoursesMethod();
   }, []);
 

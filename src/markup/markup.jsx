@@ -33,6 +33,7 @@ import Review from "../css/admin/review";
 
 // import Admin from "../../layouts/Admin.js";
 import Admin from "../StudentDashboard/src/layouts/Admin";
+import Cart from "./pages/Cart";
 
 class Markup extends Component {
   render() {
@@ -61,16 +62,22 @@ class Markup extends Component {
             {/* Courses */}
             <Route path="/courses" exact component={Courses} />
             <Route path="/courses-details" exact component={CoursesDetails} />
+            <Route path="/cart" exact component={Cart} />
+
             {/* Contact Us */}
             <Route path="/contact" exact component={Contact1} />
+            {/* Student Panel */}
             <Route path="/test" exact component={Review} />
-            {/* <Route path="/student/dashboard" exact component={Admin} />
+            <Route path="/student/dashboard" exact component={Admin} />
             <Route path="/student/table" exact component={Admin} />
             <Route path="/student/user" exact component={Admin} />
             <Route path="/student/icons" exact component={Admin} />
             <Route path="/student/notifications" exact component={Admin} />
-            <Route path="/student/typography" exact component={Admin} /> */}
+            <Route path="/student/typography" exact component={Admin} />
+            <Route path="/student/classes" exact component={Admin} />
+            <Route path="/student/transcript" exact component={Admin} />
 
+            {/* Error Page */}
             <Route path="*" exact component={Error404} />
             {/* <Redirect from="/student/*" to="stude" /> */}
           </Switch>

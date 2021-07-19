@@ -79,7 +79,7 @@ const Header = (props) => {
                     <>
                       <ul className="">
                         <li className="active">
-                          <Link to="/student/profile">
+                          <Link to="student/dashboard">
                             {currentStudent !== undefined &&
                               currentStudent.account.firstName}
                             <i

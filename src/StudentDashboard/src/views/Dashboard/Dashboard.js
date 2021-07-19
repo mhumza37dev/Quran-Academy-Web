@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
 // @material-ui/core
@@ -41,7 +41,17 @@ import styles from "../../assets/jss/material-dashboard-react/views/dashboardSty
 
 const useStyles = makeStyles(styles);
 
-export default function Dashboard() {
+export default function Dashboard(props) {
+  const [currentStudent, setCurrentStudent] = useState();
+
+  if (!JSON.parse(localStorage.getItem("student"))) {
+    props.history.push("/login");
+  }
+  useMemo(
+    () => setCurrentStudent(JSON.parse(localStorage.getItem("student"))),
+    []
+  );
+
   const classes = useStyles();
   return (
     <div>

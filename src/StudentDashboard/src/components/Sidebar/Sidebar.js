@@ -11,9 +11,12 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
+
+import Person from "@material-ui/icons/Person";
 // core components
 import AdminNavbarLinks from "../../components/Navbars/AdminNavbarLinks.js";
 import RTLNavbarLinks from "../../components/Navbars/RTLNavbarLinks.js";
+import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 
 import styles from "../../assets/jss/material-dashboard-react/components/sidebarStyle.js";
 
@@ -84,7 +87,6 @@ export default function Sidebar(props) {
   var brand = (
     <div className={classes.logo}>
       <a
-        href="https://www.creative-tim.com?ref=mdr-sidebar"
         className={classNames(classes.logoLink, {
           [classes.logoLinkRTL]: props.rtlActive,
         })}
@@ -139,7 +141,41 @@ export default function Sidebar(props) {
           }}
         >
           {brand}
-          <div className={classes.sidebarWrapper}>{links}</div>
+          <div className={classes.sidebarWrapper}>
+            {links}
+            <div style={{ bottom: 0, position: "absolute" }}>
+              <List className={classes.list}>
+                <NavLink
+                  to={"#"}
+                  className={classes.activePro + classes.item}
+                  activeClassName="active"
+                  onClick={() => {
+                    localStorage.removeItem("student");
+                    props.history.push("/login");
+                  }}
+                >
+                  <ListItem button className={classes.itemLink}>
+                    <Icon
+                      className={classNames(classes.itemIcon, {
+                        [classes.itemIconRTL]: props.rtlActive,
+                      })}
+                      style={{ display: "inline", color: "red" }}
+                    >
+                      <PowerSettingsNewIcon />
+                    </Icon>
+                    <ListItemText
+                      primary={"Logout"}
+                      className={classNames(classes.itemText, {
+                        [classes.itemTextRTL]: props.rtlActive,
+                      })}
+                      disableTypography={true}
+                      style={{ display: "inline" }}
+                    />
+                  </ListItem>
+                </NavLink>
+              </List>
+            </div>
+          </div>
           {image !== undefined ? (
             <div
               className={classes.background}
