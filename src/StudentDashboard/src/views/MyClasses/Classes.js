@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from "react";
 
 import { useLoading, Audio } from "@agney/react-loading";
 
+import SearchField from "react-search-field";
+
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //
 // import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -37,6 +39,8 @@ const Classes = (props) => {
   // const [counter, setCounter] = useState(0);
   const [currentAdmin, setCurrentAdmin] = useState();
 
+  const [copyArray, setCopyArray] = useState([]);
+
   const [adminId, setAdminId] = useState("");
   const [fetchedAdmins, setFetchedAdmins] = useState([]);
   const [runn, setrunn] = useState();
@@ -56,18 +60,19 @@ const Classes = (props) => {
   const [formState, setFormState] = useState();
   const [mounted, setMounted] = useState(false);
 
+  const [course, setCourseSearch] = useState();
+  const [timeSearch, setTimeSearch] = useState();
+  const [daySearch, setDaySearch] = useState();
+  const [teacherSearch, setTeacherSearch] = useState();
+
   const { containerProps, indicatorEl } = useLoading({
     loading: true,
     indicator: <Audio width="50" />,
   });
 
-  // let admin = JSON.parse(localStorage.getItem("user"));
-  // if (
-  //   !admin.permissionss.includes("View Admins") &&
-  //   admin.account.super === false
-  // ) {
-  //   props.history.push("/admin/404");
-  // }
+  if (!JSON.parse(localStorage.getItem("student"))) {
+    props.history.push("/login");
+  }
 
   useMemo(() => {
     setCurrentAdmin(JSON.parse(localStorage.getItem("student")));
@@ -93,111 +98,6 @@ const Classes = (props) => {
       });
   }, []);
 
-  // const edit = () => {
-  //   console.log(currentAdmin.account.jwtToken);
-  //   // setAdminId(a);
-  //   let url = `https://quran-server.herokuapp.com/admin/${adminId}`;
-  //   if (adminId !== "") {
-  //     console.log(url);
-
-  //     fetch(url, {
-  //       method: "PUt",
-  //       dataType: "JSON",
-  //       headers: {
-  //         "Content-Type": "application/json; charset=utf-8",
-  //         Authorization: `Bearer ${currentAdmin.account.jwtToken}`,
-  //       },
-  //       body: JSON.stringify({
-  //         firstName: firstname,
-  //         lastName: lastname,
-  //         mobile: mobile,
-  //         dob: dob,
-  //         gender: gender,
-  //         email: email,
-  //         password: password,
-  //         confirmPassword: confirmPassword,
-  //         acceptTerms: acceptTerms,
-  //       }),
-  //     })
-  //       .then((res) => res.json())
-  //       .then((res) => {
-  //         console.log(res);
-  //         setMessage(res.message);
-  //         if (res.message === "Successfully Updated") {
-  //           localStorage.setItem("lastCallAt", Date.now());
-  //           setAlertType("success");
-  //           setOpen(true);
-  //           setTimeout(() => {
-  //             handleShow();
-  //           }, 1000);
-  //         } else if (res.message === "Email is already in use") {
-  //           setAlertType("warning");
-  //           setOpen(true);
-  //           // setTimeout(() => {
-  //           //   setOpen(false);
-  //           // }, 5000);
-  //         } else if (res.message === "Phone Number is already in use") {
-  //           setAlertType("warning");
-  //           setOpen(true);
-  //           // setTimeout(() => {
-  //           //   setOpen(false);
-  //           // }, 5000);
-  //         } else {
-  //           setAlertType("danger");
-  //           setOpen(true);
-  //           // setTimeout(() => {
-  //           //   setOpen(false);
-  //           // }, 5000);
-  //         }
-  //       });
-  //   } else {
-  //     setMessage("Wait a minute !!!! who are you ?????");
-  //     setAlertType("danger");
-  //     setOpen(true);
-  //     // setTimeout(() => {
-  //     //   setOpen(false);
-  //     // }, 5000);
-  //   }
-  // };
-
-  // const deleteAdmin = (adminid) => {
-  //   console.log("delete function start");
-  //   fetch(`https://quran-server.herokuapp.com/admin/block/${adminid}`, {
-  //     method: "DELETE",
-  //     headers: {
-  //       "Content-Type": "application/json; charset=utf-8",
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       console.log("response===> ", res);
-  //       setMessage(res.message);
-  //       if (res.message === "Account deleted successfully") {
-  //         localStorage.setItem("lastCallAt", Date.now());
-  //         setAlertType("success");
-  //         setOpen(true);
-  //         setAdminId("");
-  //       } else {
-  //         setAlertType("danger");
-  //         setOpen(true);
-  //       }
-  //     });
-  // };
-
-  // const displayStates = () => {
-  //   // console.log({
-  //   //   firstname: firstname,
-  //   //   lastname: lastname,
-  //   //   mobile: mobile,
-  //   //   dob: dob,
-  //   //   gender: gender,
-  //   //   email: email,
-  //   //   password: password,
-  //   //   confirmPassword: confirmPassword,
-  //   //   acceptTerms: acceptTerms,
-  //   // });
-  // };
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const classes = useStyles();
@@ -220,150 +120,6 @@ const Classes = (props) => {
   return (
     <>
       <div className="header bg-gradient-dark pb-8 pt-5 pt-md-8"></div>
-
-      {/* <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-        size="xl"
-      >
-        <Modal.Header closeButton></Modal.Header>
-        <Modal.Body>
-          <div>
-            <Alert
-              color={alertType}
-              isOpen={open}
-              onClick={() => setOpen(false)}
-              toggle={() => setOpen(false)}
-            >
-              {message}
-            </Alert>
-            <div>
-              <div className="container justify-content-center">
-                    <div className="pb-5">
-                  <h1 className="font-weight-bold fs">Update Admin</h1>
-                  <div
-                    style={{
-                      borderBottom: "5px solid #5e72e4",
-                      width: "95px",
-                    }}
-                  />
-                </div>
-                <form className="css-prp">
-                  <div className="row pb-lg-3 pb-md-3">
-                    <div className="col-12  col-lg-6 col-md-6 form-group">
-                      <label htmlFor="Name">First Name</label>
-                      <input
-                        placeholder="enter first name"
-                        type="name"
-                        value={firstname}
-                        className="form-control"
-                        onChange={(e) => {
-                          setfirstname(e.target.value);
-                        }}
-                      />
-                    </div>
-                    <div className="col-12 col-lg-6 col-md-6 form-group">
-                      <label htmlFor="name">Last Name</label>
-                      <input
-                        placeholder="enter last name"
-                        type="name"
-                        value={lastname}
-                        className="form-control"
-                        onChange={(e) => {
-                          setlastname(e.target.value);
-                        }}
-                      />
-                    </div>
-                    <div className="col-12  col-lg-6 col-md-6 form-group">
-                      <label htmlFor="address">Mobile</label>
-                      <input
-                        placeholder="enter mobile number"
-                        type="text"
-                        value={mobile}
-                        className="form-control"
-                        onChange={(e) => {
-                          setmobile(e.target.value);
-                        }}
-                      />
-                    </div>
-
-                    <div className="col-12 col-lg-6 col-md-6 form-group">
-                      <label htmlFor="birthday">Birthday</label>
-                      <input
-                        placeholder="enter birthday"
-                        type="Date"
-                        value={getFormattedDate(dob).toString()}
-                        className="form-control"
-                        onChange={(e) => {
-                          setdob(e.target.value);
-                        }}
-                      />
-                    </div>
-                    <div className="col-12 col-lg-12 col-md-12 form-group">
-                      <label htmlFor="birthday">Email</label>
-                      <input
-                        placeholder="Enter Email"
-                        type="email"
-                        value={email}
-                        className="form-control"
-                        onChange={(e) => {
-                          setEmail(e.target.value);
-                        }}
-                      />
-                    </div>
-
-                    <div className="col-12 col-lg-6 col-md-6 form-group">
-                      <label htmlFor="name">Password</label>
-                      <input
-                        placeholder="Enter Password"
-                        type="password"
-                        value={password}
-                        className="form-control"
-                        onChange={(e) => {
-                          setpassword(e.target.value);
-                        }}
-                      />
-                    </div>
-
-                    <div className="dropdown col-xl-6 col-lg-6 col-md-6">
-                      <label htmlFor="name">Gender</label>
-                      <select
-                        className="form-control"
-                        id="sel1"
-                        value={gender}
-                        onChange={(e) => {
-                          setgender(e.target.value);
-                        }}
-                      >
-                        <option>Male</option>
-                        <option>Female</option>
-                      </select>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <BT variant="secondary" onClick={handleClose}>
-            Close
-          </BT>
-          <BT
-            style={{ background: "#5e72e4", color: "white" }}
-            // onClick={displayStates}
-            // onClick={() => {
-            //   displayStates();
-            //   edit();
-            // }}
-          >
-            Update
-          </BT>
-        </Modal.Footer>
-      </Modal> */}
-
       <Container className="mt--7" fluid>
         {/* Table */}
         <Row>
@@ -382,10 +138,115 @@ const Classes = (props) => {
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
+                      <th></th>
+                      <th className="text-center">
+                        {" "}
+                        <SearchField
+                          placeholder="Search Course"
+                          onChange={(value, event) => {
+                            if (value.length > 0) {
+                              console.log("course search value", value);
+                              console.log(
+                                fetchedAdmins.AllClasses.filter((item) =>
+                                  item.course.Title.toLowerCase().includes(
+                                    value
+                                  )
+                                )
+                              );
+                              setCopyArray(
+                                fetchedAdmins.AllClasses.filter((item) =>
+                                  item.course.Title.toLowerCase().includes(
+                                    value
+                                  )
+                                )
+                              );
+                            } else {
+                              setCopyArray([]);
+                            }
+                          }}
+                        />
+                      </th>
+                      <th className="text-center">
+                        {" "}
+                        <SearchField
+                          placeholder="Search Teacher"
+                          // onChange={onTeacherSearch}
+                          onChange={(value, event) => {
+                            if (value.length > 0) {
+                              console.log("Teacher search value", value);
+                              console.log(
+                                fetchedAdmins.AllClasses.filter((item) =>
+                                  item.teacher[0].firstName
+                                    .toLowerCase()
+                                    .includes(value)
+                                )
+                              );
+                              setCopyArray(
+                                fetchedAdmins.AllClasses.filter((item) =>
+                                  item.teacher[0].firstName
+                                    .toLowerCase()
+                                    .includes(value)
+                                )
+                              );
+                            } else {
+                              setCopyArray([]);
+                            }
+                          }}
+                        />
+                      </th>
+                      <th className="text-center">
+                        {" "}
+                        <SearchField
+                          placeholder="Search Days"
+                          // onChange={onDaySearch}
+                          onChange={(value, event) => {
+                            if (value.length > 0) {
+                              console.log("Days search value", value);
+                              console.log(
+                                fetchedAdmins.AllClasses.filter((item) =>
+                                  item.days.toLowerCase().includes(value)
+                                )
+                              );
+                              setCopyArray(
+                                fetchedAdmins.AllClasses.filter((item) =>
+                                  item.days.toLowerCase().includes(value)
+                                )
+                              );
+                            } else {
+                              setCopyArray([]);
+                            }
+                          }}
+                        />
+                      </th>
+                      <th className="text-center">
+                        {" "}
+                        <SearchField
+                          placeholder="Search Time-Slot"
+                          onChange={(value, event) => {
+                            if (value.length > 0) {
+                              console.log("Time search value", value);
+                              console.log(
+                                fetchedAdmins.AllClasses.filter((item) =>
+                                  item.time_slot.toLowerCase().includes(value)
+                                )
+                              );
+                              setCopyArray(
+                                fetchedAdmins.AllClasses.filter((item) =>
+                                  item.time_slot.toLowerCase().includes(value)
+                                )
+                              );
+                            } else {
+                              setCopyArray([]);
+                            }
+                          }}
+                        />
+                      </th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                    <tr>
                       <th>S.No</th>
-                      {/* <th scope="col" className="text-center">
-                        ClassID
-                      </th> */}
                       <th scope="col" className="text-center">
                         Course
                       </th>
@@ -395,7 +256,11 @@ const Classes = (props) => {
                       <th scope="col" className="text-center">
                         Days
                       </th>
-                      <th scope="col" className="text-center">
+                      <th
+                        scope="col"
+                        className="text-center"
+                        // style={{ borderLeft: "1px solid #dee2e6" }}
+                      >
                         Time-Slot
                       </th>
                       <th scope="col" className="text-center">
@@ -407,24 +272,20 @@ const Classes = (props) => {
                       <th scope="col" className="text-center">
                         Total Attendance
                       </th>
-                      {/* <th scope="col" />
-                    <th scope="col" /> */}
                     </tr>
                   </thead>
 
                   <tbody>
-                    {fetchedAdmins === undefined
-                      ? null
-                      : fetchedAdmins.AllClasses !== undefined &&
-                        fetchedAdmins.AllClasses.map((data) =>
-                          data.status !== "blocked" ? (
+                    {fetchedAdmins ===
+                    undefined ? null : fetchedAdmins.AllClasses !==
+                      undefined ? (
+                      fetchedAdmins.AllClasses.length > 0 ? (
+                        copyArray === undefined ? (
+                          <span>No result found</span>
+                        ) : copyArray.length > 0 ? (
+                          copyArray.map((data) => (
                             <tr>
-                              <td>{++counter}</td>
-                              {/* <td scope="row" className="text-center">
-                                <span className="mb-0 text-sm text-center">
-                                  {data.id}
-                                </span>
-                              </td> */}
+                              <th>{++counter}</th>
                               <td className="text-center">
                                 <span className="mb-0 text-md">
                                   {data.course.Title}
@@ -436,14 +297,22 @@ const Classes = (props) => {
                                   data.teacher[0].lastName}
                               </td>
                               <td className="text-center">{data.days}</td>
-                              <td className="text-center">{data.time_slot}</td>
+                              <td
+                                className="text-center"
+                                // style={{ borderLeft: "1px solid #dee2e6" }}
+                              >
+                                {data.time_slot}
+                              </td>
                               <td className="text-center">
-                                {
+                                {fetchedAdmins.TotalAttendance[data.id] !==
+                                undefined ? (
                                   fetchedAdmins.TotalAttendance[data.id][
                                     fetchedAdmins.TotalAttendance[data.id]
                                       .length - 1
                                   ]["Total Absent"]
-                                }
+                                ) : (
+                                  <span>-</span>
+                                )}
                               </td>
 
                               <td className="text-center">
@@ -452,26 +321,113 @@ const Classes = (props) => {
                                 ) : (
                                   <i className="bg-success" />
                                 )}
-                                {
+                                {fetchedAdmins.TotalAttendance[data.id] !==
+                                undefined ? (
                                   fetchedAdmins.TotalAttendance[data.id][
                                     fetchedAdmins.TotalAttendance[data.id]
                                       .length - 1
                                   ]["Total Present"]
-                                }
+                                ) : (
+                                  <span>-</span>
+                                )}
                               </td>
+
                               <td className="text-center">
-                                {fetchedAdmins.TotalAttendance[data.id][
-                                  fetchedAdmins.TotalAttendance[data.id]
-                                    .length - 1
-                                ]["Total Present"] +
+                                {fetchedAdmins.TotalAttendance[data.id] !==
+                                undefined ? (
                                   fetchedAdmins.TotalAttendance[data.id][
                                     fetchedAdmins.TotalAttendance[data.id]
                                       .length - 1
-                                  ]["Total Absent"]}
+                                  ]["Total Present"] +
+                                  fetchedAdmins.TotalAttendance[data.id][
+                                    fetchedAdmins.TotalAttendance[data.id]
+                                      .length - 1
+                                  ]["Total Absent"]
+                                ) : (
+                                  <span>-</span>
+                                )}
                               </td>
                             </tr>
-                          ) : null
-                        )}
+                          ))
+                        ) : (
+                          fetchedAdmins.AllClasses.map((data) => (
+                            <tr>
+                              <th>{++counter}</th>
+                              {/* <td scope="row" className="text-center">
+                          <span className="mb-0 text-sm text-center">
+                            {data.id}
+                          </span>
+                        </td> */}
+                              <td className="text-center">
+                                <span className="mb-0 text-md">
+                                  {data.course.Title}
+                                </span>
+                              </td>
+                              <td className="text-center">
+                                {data.teacher[0].firstName +
+                                  " " +
+                                  data.teacher[0].lastName}
+                              </td>
+                              <td className="text-center">{data.days}</td>
+                              <td
+                                className="text-center"
+                                // style={{ borderLeft: "1px solid #dee2e6" }}
+                              >
+                                {data.time_slot}
+                              </td>
+                              <td className="text-center">
+                                {fetchedAdmins.TotalAttendance[data.id] !==
+                                undefined ? (
+                                  fetchedAdmins.TotalAttendance[data.id][
+                                    fetchedAdmins.TotalAttendance[data.id]
+                                      .length - 1
+                                  ]["Total Absent"]
+                                ) : (
+                                  <span>-</span>
+                                )}
+                              </td>
+
+                              <td className="text-center">
+                                {data.status === "Inactive" ? (
+                                  <i className="bg-warning" />
+                                ) : (
+                                  <i className="bg-success" />
+                                )}
+                                {fetchedAdmins.TotalAttendance[data.id] !==
+                                undefined ? (
+                                  fetchedAdmins.TotalAttendance[data.id][
+                                    fetchedAdmins.TotalAttendance[data.id]
+                                      .length - 1
+                                  ]["Total Present"]
+                                ) : (
+                                  <span>-</span>
+                                )}
+                              </td>
+                              <td className="text-center">
+                                {fetchedAdmins.TotalAttendance[data.id] !==
+                                undefined ? (
+                                  fetchedAdmins.TotalAttendance[data.id][
+                                    fetchedAdmins.TotalAttendance[data.id]
+                                      .length - 1
+                                  ]["Total Present"] +
+                                  fetchedAdmins.TotalAttendance[data.id][
+                                    fetchedAdmins.TotalAttendance[data.id]
+                                      .length - 1
+                                  ]["Total Absent"]
+                                ) : (
+                                  <span>-</span>
+                                )}
+                              </td>
+                            </tr>
+                          ))
+                        )
+                      ) : (
+                        // null
+                        <tr>
+                          <td>You are not enrolled in any class</td>
+                        </tr>
+                      )
+                    ) : null}
                   </tbody>
                 </Table>
               </CardBody>

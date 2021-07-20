@@ -18,6 +18,7 @@ import Button from "../../components/CustomButtons/Button.js";
 import { useRouteName } from "../../hooks";
 
 import styles from "../../assets/jss/material-dashboard-react/components/headerStyle.js";
+import { Avatar } from "@material-ui/core";
 
 const useStyles = makeStyles(styles);
 
@@ -28,6 +29,7 @@ export default function Header(props) {
   const appBarClasses = classNames({
     [" " + classes[color]]: color,
   });
+
   return (
     <AppBar className={classes.appBar + appBarClasses}>
       <Toolbar className={classes.container}>
@@ -36,6 +38,14 @@ export default function Header(props) {
           <Button color="transparent" href="#" className={classes.title}>
             {routeName}
           </Button>
+          <Avatar
+            // className={classes}
+            src="https://i.pinimg.com/originals/e2/81/cc/e281cce8e26db25388a247a2c994d1f4.jpg"
+            style={{
+              float: "right",
+              margin: "1%",
+            }}
+          />
         </div>
         <Hidden smDown implementation="css">
           {props.rtlActive ? (

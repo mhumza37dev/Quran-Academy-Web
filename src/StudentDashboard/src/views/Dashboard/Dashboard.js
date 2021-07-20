@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
 // @material-ui/core
@@ -16,6 +16,8 @@ import Accessibility from "@material-ui/icons/Accessibility";
 import BugReport from "@material-ui/icons/BugReport";
 import Code from "@material-ui/icons/Code";
 import Cloud from "@material-ui/icons/Cloud";
+import ClassIcon from "@material-ui/icons/Class";
+import SchoolIcon from "@material-ui/icons/School";
 // core components
 import GridItem from "../../components/Grid/GridItem.js";
 import GridContainer from "../../components/Grid/GridContainer.js";
@@ -43,6 +45,7 @@ const useStyles = makeStyles(styles);
 
 export default function Dashboard(props) {
   const [currentStudent, setCurrentStudent] = useState();
+  const [fetchedAdmins, setFetchedAdmins] = useState([]);
 
   if (!JSON.parse(localStorage.getItem("student"))) {
     props.history.push("/login");
@@ -52,6 +55,24 @@ export default function Dashboard(props) {
     []
   );
 
+  useEffect(() => {
+    fetch(
+      `https://quran-server.herokuapp.com/student/attendance/count/all/${currentStudent.account.id}`,
+      {
+        method: "GET",
+        dataType: "JSON",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          Authorization: `Bearer ${currentStudent.jwtToken}`,
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("sdsadasdasd========>?", res);
+        setFetchedAdmins(res);
+      });
+  }, []);
   const classes = useStyles();
   return (
     <div>
@@ -61,21 +82,21 @@ export default function Dashboard(props) {
             <CardHeader color="warning" stats icon>
               <CardIcon color="warning">
                 <Icon>
-                  <Warning />
+                  <ClassIcon />
                 </Icon>
               </CardIcon>
-              <p className={classes.cardCategory}>Used Space</p>
-              <h4 className={classes.cardTitle}>
-                49/50 <small>GB</small>
-              </h4>
+              <p className={classes.cardCategory}>
+                <strong>Today's Extra Class</strong>
+              </p>
+              <h3 className={classes.cardTitle}>
+                0 <small></small>
+              </h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
-                <Danger>
-                  <Warning />
-                </Danger>
+                <Danger>{/* <Warning /> */}</Danger>
                 <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                  Get more space
+                  {/* Get more space */}
                 </a>
               </div>
             </CardFooter>
@@ -85,15 +106,19 @@ export default function Dashboard(props) {
           <Card>
             <CardHeader color="success" stats icon>
               <CardIcon color="success">
-                <Store />
+                <SchoolIcon />
               </CardIcon>
-              <p className={classes.cardCategory}>Revenue</p>
-              <h3 className={classes.cardTitle}>$34.5</h3>
+              <p className={classes.cardCategory}>
+                <strong>Enrolled Classes</strong>
+              </p>
+              <h3 className={classes.cardTitle}>
+                {`${fetchedAdmins.AllClasses?.length}`}
+              </h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
-                <DateRange />
-                Last 24 Hours
+                {/* <DateRange /> */}
+                {/* Last 24 Hours */}
               </div>
             </CardFooter>
           </Card>
@@ -111,8 +136,8 @@ export default function Dashboard(props) {
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
-                <LocalOffer />
-                Tracked from Github
+                {/* <LocalOffer />
+                Tracked from Github */}
               </div>
             </CardFooter>
           </Card>
@@ -123,13 +148,15 @@ export default function Dashboard(props) {
               <CardIcon color="info">
                 <Accessibility />
               </CardIcon>
-              <p className={classes.cardCategory}>Followers</p>
+              <p className={classes.cardCategory}>
+                <strong>Missed Sessions</strong>
+              </p>
               <h3 className={classes.cardTitle}>+245</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
-                <Update />
-                Just Updated
+                {/* <Update />
+                Just Updated */}
               </div>
             </CardFooter>
           </Card>

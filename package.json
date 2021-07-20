@@ -34,6 +34,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-scroll": "^1.8.1",
+    "react-search-field": "^2.0.1",
     "react-slick": "^0.28.1",
     "react-stickynode": "^3.0.4",
     "react-swipeable-views": "0.13.9",

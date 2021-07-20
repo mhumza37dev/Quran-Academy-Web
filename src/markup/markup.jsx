@@ -20,6 +20,7 @@ import Membership from "./pages/membership";
 import Error404 from "./pages/error-404";
 import Register from "./pages/register";
 import Login from "./pages/login";
+import TeacherLogin from "./pages/TeacherLogin";
 import ForgetPassword from "./pages/forget-password";
 
 // Courses
@@ -57,6 +58,8 @@ class Markup extends Component {
             <Route path="/error-404" exact component={Error404} />
             <Route path="/register" exact component={Register} />
             <Route path="/login" exact component={Login} />
+            <Route path="/teacher/login" exact component={TeacherLogin} />
+
             <Route path="/forget-password" exact component={ForgetPassword} />
             {/* <Route path="/student/profile" exact component={StudentProfile} /> */}
             {/* Courses */}

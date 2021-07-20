@@ -60,7 +60,7 @@ const TeacherLogin = (props) => {
             setAlertIcon("fa fa-times-circle");
             setOpen(true);
           } else {
-            localStorage.setItem("student", JSON.stringify(res));
+            localStorage.setItem("teacher", JSON.stringify(res));
             props.history.push("/");
           }
         });
@@ -93,8 +93,7 @@ const TeacherLogin = (props) => {
           setVariant("danger");
           setAlertIcon("fa fa-times-circle");
           setOpen(true);
-        }
-        if (res.account) {
+        } else if (res.account) {
           localStorage.setItem("student", JSON.stringify(res));
           props.history.push("");
           console.log("sssssssss");
@@ -102,19 +101,48 @@ const TeacherLogin = (props) => {
       });
   };
 
-  const loginWithFacebook = () => {
-    fetch("")
-      .then((res) => res.json())
-      .then((res) => console.log(res));
+  const loginWithFacebook = (response) => {
+    console.log(response);
+    if (response.email !== undefined) {
+      fetch("https://quran-server.herokuapp.com/student/facebook2", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: response.name,
+          imageUrl: response.picture.data.url,
+          userID: response.id,
+          email: response.email,
+          providerName: response.graphDomain,
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          if (res.account) {
+            localStorage.setItem("student", JSON.stringify(res));
+            props.history.push("");
+            console.log("sssssssss");
+          } else {
+            setMessage("Couldn't Login, Try Again after a while.");
+            setVariant("danger");
+            setAlertIcon("fa fa-times-circle");
+            setOpen(true);
+          }
+        });
+    } else {
+      setMessage("Couldn't Login");
+      setVariant("danger");
+      setAlertIcon("fa fa-times-circle");
+      setOpen(true);
+    }
   };
 
   return (
     <>
       <div className="account-form">
-        <div
-          className="account-head"
-          // style={{ backgroundImage: "url(" + bannerImg + ")" }}
-        >
+        <div className="account-head">
           <Link to="/">
             <img src={logo} alt="" width="50%" />
           </Link>
@@ -127,10 +155,10 @@ const TeacherLogin = (props) => {
               </h2>
               <p>
                 Don't have an account?{" "}
-                <Link to="/register">Create one here</Link>
+                <Link to="/register">Create one here as Instructor</Link>
               </p>
             </div>
-            <Alert show={open} variant={variant}>
+            <Alert show={open} variant={variant} onClick={() => setOpen(false)}>
               <i className={alertIcon}></i>
               {message}
             </Alert>
@@ -191,61 +219,43 @@ const TeacherLogin = (props) => {
                     appId="1427438870956312"
                     autoLoad={false}
                     icon={true}
-                    // textButton="Facebook"
                     fields="name,email,picture"
-                    callback={responseFacebook}
+                    callback={loginWithFacebook}
                     size={"small"}
                     render={(renderProps) => (
                       <Link
                         className="btn flex-fill m-r10 facebook"
                         onClick={(e) => {
                           renderProps.onClick();
-                          console.trace();
+                          // console.trace();
                         }}
                         style={{ color: "white" }}
                       >
-                        <i className="fa fa-facebook"></i>Log In with Facebook
+                        <i className="fa fa-facebook"></i>Sign In with Facebook
                       </Link>
                     )}
                   />
-                  {/* <Link
-                    className="btn flex-fill m-r10 facebook"
-                    style={{ color: "white", border: "none" }}
-                    to="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      loginWithFacebook();
-                    }}
-                  >
-                    <i className="fa fa-facebook"></i>Facebook
-                  </Link> */}
-                  {/* <Link
-                    className="btn flex-fill m-l5 google-plus"
-                    style={{ color: "white", border: "none" }}
-                    to="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      loginWithGoogle();
-                    }}
-                  >
-                    <i className="fa fa-google-plus"></i>Google Plus
-                  </Link> */}
                   <GoogleLogin
                     className="btn flex-fill m-l5 google-plus"
                     clientId="862532654552-a4dtqhi1d9pkrfang07hdijg2pcj2254.apps.googleusercontent.com"
-                    // buttonText="Google"
                     onSuccess={loginWithGoogle}
                     onFailure={responseGoogle}
-                    theme={"dark"}
-                    icon={false}
-                  >
-                    <i className="fa fa-google-plus"></i>Log In with Google
-                  </GoogleLogin>
+                    render={(renderProps) => (
+                      <Link
+                        className="btn flex-fill m-l5 google-plus"
+                        onClick={renderProps.onClick}
+                        disabled={renderProps.disabled}
+                      >
+                        <i className="fa fa-google-plus"></i>Sign In with Google
+                      </Link>
+                    )}
+                  />
+
                   <div className="heading-bx left">
                     <p>
                       <h5 className="title-head">Are you a </h5>
-                      <Link style={{ marginLeft: "5px" }} to="/register">
-                        Teacher ?
+                      <Link style={{ marginLeft: "5px" }} to="/login">
+                        Student ?
                       </Link>
                     </p>
                   </div>

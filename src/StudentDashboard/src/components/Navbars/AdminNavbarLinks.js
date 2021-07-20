@@ -20,6 +20,7 @@ import CustomInput from "../../components/CustomInput/CustomInput.js";
 import Button from "../../components/CustomButtons/Button.js";
 
 import styles from "../../assets/jss/material-dashboard-react/components/headerLinksStyle.js";
+import { Avatar } from "@material-ui/core";
 
 const useStyles = makeStyles(styles);
 
@@ -159,7 +160,7 @@ export default function AdminNavbarLinks(props) {
             </Grow>
           )}
         </Poppers>
-      </div> */}
+      </div> 
       <div className={classes.manager}>
         <Button
           color={window.innerWidth > 959 ? "transparent" : "black"}
@@ -221,7 +222,7 @@ export default function AdminNavbarLinks(props) {
             </Grow>
           )}
         </Poppers>
-      </div>
+      </div>*/}
     </div>
   );
 }

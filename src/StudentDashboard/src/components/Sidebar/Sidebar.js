@@ -120,6 +120,37 @@ export default function Sidebar(props) {
           <div className={classes.sidebarWrapper}>
             {props.rtlActive ? <RTLNavbarLinks /> : <AdminNavbarLinks />}
             {links}
+            <div style={{ bottom: 0, position: "absolute" }}>
+              <List className={classes.list}>
+                <a
+                  className={classes.activePro + classes.item}
+                  activeClassName="active"
+                  onClick={() => {
+                    localStorage.removeItem("student");
+                    props.history.push("/login");
+                  }}
+                >
+                  <ListItem button className={classes.itemLink}>
+                    <Icon
+                      className={classNames(classes.itemIcon, {
+                        [classes.itemIconRTL]: props.rtlActive,
+                      })}
+                      style={{ display: "inline", color: "#ff3f3f" }}
+                    >
+                      <PowerSettingsNewIcon />
+                    </Icon>
+                    <ListItemText
+                      primary={"Logout"}
+                      className={classNames(classes.itemText, {
+                        [classes.itemTextRTL]: props.rtlActive,
+                      })}
+                      disableTypography={true}
+                      style={{ display: "inline" }}
+                    />
+                  </ListItem>
+                </a>
+              </List>
+            </div>
           </div>
           {image !== undefined ? (
             <div
@@ -159,7 +190,7 @@ export default function Sidebar(props) {
                       className={classNames(classes.itemIcon, {
                         [classes.itemIconRTL]: props.rtlActive,
                       })}
-                      style={{ display: "inline", color: "red" }}
+                      style={{ display: "inline", color: "#ff3f3f" }}
                     >
                       <PowerSettingsNewIcon />
                     </Icon>
